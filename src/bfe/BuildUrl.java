@@ -6,6 +6,10 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class BuildUrl {
+	
+	private BuildUrl() {
+		// this class cannot be instantiated
+	}
 
 	public static String[] getIds(String gender, String year, String level, String fase, JComboBox<String> group) {
 
@@ -114,9 +118,9 @@ public class BuildUrl {
 		return output;
 	}
 
-	public static String[] scanDatas(String code) {
+	private static String[] scanDatas(String code) {
 
-		String[] ids = new String[3];
+		String[] ids = new String[4];
 		String line;
 		String[] arrayLine = new String[5];
 		String idstart = null;
@@ -150,6 +154,7 @@ public class BuildUrl {
 		ids[0] = idstart;
 		ids[1] = idend;
 		ids[2] = idgroup;
+		ids[3] = code;
 		return ids;
 	}
 

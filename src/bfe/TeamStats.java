@@ -8,6 +8,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class TeamStats {
+	
+	private TeamStats() {
+		// this class cannot be instantiated
+	}
 
 	public static String[][] statsGroup(String gender, String id) {
 

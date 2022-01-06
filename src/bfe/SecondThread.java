@@ -18,6 +18,7 @@ public class SecondThread extends SwingWorker<Void, String> {
 	private JLabel text;
 	private JFrame frame;
 
+	private String code;
 	private List<String> players = new ArrayList<>();
 	private List<Integer> points = new ArrayList<>();
 	private List<Integer> games = new ArrayList<>();
@@ -40,6 +41,7 @@ public class SecondThread extends SwingWorker<Void, String> {
 	@Override
 	protected Void doInBackground() {
 
+		setCode(ids[3]);
 		setTeamStats(TeamStats.statsGroup(gender, ids[2]));
 		PlayerStats ps = new PlayerStats(this);
 		ps.statsPlayer(gender, ids[0], ids[1], bar, text);
@@ -62,7 +64,7 @@ public class SecondThread extends SwingWorker<Void, String> {
 
 				try {
 					
-					FrameB frame = new FrameB(teamStats, players, points, tls, twos, threes, games);
+					FrameB frame = new FrameB(code, teamStats, players, points, tls, twos, threes, games);
 					frame.setVisible(true);					
 					
 				} catch (Exception e) {
@@ -77,6 +79,10 @@ public class SecondThread extends SwingWorker<Void, String> {
 
 	// Getters and Setters
 
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 	public void setPlayers(ArrayList<String> players) {
 		this.players = players;
 	}
