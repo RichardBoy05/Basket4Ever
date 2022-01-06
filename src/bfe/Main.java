@@ -12,8 +12,8 @@ public class Main { // ricordati di sistemare i tolltiptext ed i final
 
 				try {
 
-					FrameA frame = new FrameA();
-					//FrameB frame = new FrameB(null, null, null, null, null, null, null);
+					//FrameA frame = new FrameA();
+					FrameB frame = new FrameB(null, null, null, null, null, null, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Errore nell'apertura dell'interfaccia\n" + e);
