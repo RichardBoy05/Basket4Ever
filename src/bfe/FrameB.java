@@ -40,7 +40,7 @@ public class FrameB extends JFrame {
 
 	// Datas
 
-	private final static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+	private final static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm:ss");
 	private Date date = new Date(System.currentTimeMillis());
 	private String code;
 	private String[][] teams;
@@ -140,6 +140,7 @@ public class FrameB extends JFrame {
 	private ImageIcon hoverminimize = new ImageIcon(getClass().getClassLoader().getResource("hoverminimize.png"));
 	private ImageIcon save = new ImageIcon(getClass().getClassLoader().getResource("save.png"));
 	private ImageIcon hoversave = new ImageIcon(getClass().getClassLoader().getResource("hoversave.png"));
+	private ImageIcon saved = new ImageIcon(getClass().getClassLoader().getResource("saved.png"));
 	private ImageIcon load = new ImageIcon(getClass().getClassLoader().getResource("load.png"));
 	private ImageIcon hoverload = new ImageIcon(getClass().getClassLoader().getResource("hoverload.png"));
 	private ImageIcon screenshot = new ImageIcon(getClass().getClassLoader().getResource("screenshot.png"));
@@ -160,8 +161,8 @@ public class FrameB extends JFrame {
 	private Image image3 = x32.getImage();
 	private Image[] images = { image1, image2, image3 };
 
-	public FrameB(String code, String[][] teams, List<String> players, List<Integer> points, List<Integer> tls, List<Integer> twos,
-			List<Integer> threes, List<Integer> games) {
+	public FrameB(String code, String[][] teams, List<String> players, List<Integer> points, List<Integer> tls,
+			List<Integer> twos, List<Integer> threes, List<Integer> games) {
 
 		// Initializating global variables
 
@@ -223,7 +224,7 @@ public class FrameB extends JFrame {
 
 		overviewLab.setBounds(90, 52, 235, 36);
 		overviewLab.setText(code + " " + (DATE_FORMATTER.format(date)));
-		
+
 		backLab.setBounds(0, 0, 1130, 670);
 		link.setBounds(109, 648, 216, 20);
 
@@ -350,7 +351,6 @@ public class FrameB extends JFrame {
 	}
 
 	private void buildUI() {
-		
 
 		contentPane.add(overviewLab);
 		contentPane.add(homeBut);
@@ -476,7 +476,7 @@ public class FrameB extends JFrame {
 
 			dispose();
 			showGui();
-			
+
 		});
 
 		searchBut.addActionListener(new IndividualStats(this));
@@ -539,13 +539,13 @@ public class FrameB extends JFrame {
 	public DefaultTableModel getIndividualModel() {
 		return individualModel;
 	}
-	
+
 	public String getCode() {
 		return code;
 	}
 	
-	public Date getDate() {
-		return date;
+	public SimpleDateFormat getdateFormatter() {
+		return DATE_FORMATTER;
 	}
 
 	public String[][] getTeams() {
@@ -586,5 +586,17 @@ public class FrameB extends JFrame {
 
 	public JTextField getPlayerName() {
 		return getPlayerTf;
+	}
+
+	public JButton getSaveBut() {
+		return saveBut;
+	}
+
+	public ImageIcon getSaveButIcon() {
+		return save;
+	}
+
+	public ImageIcon getSavedButIcon() {
+		return saved;
 	}
 }

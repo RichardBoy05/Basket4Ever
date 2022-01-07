@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JOptionPane;
 
-public class Main { // ricordati di sistemare i tolltiptext ed i final/*
+public class Main { // ricordati di sistemare i tolltiptext ed i final e i null da replacare nei joptionpanes
 
 	public static void main(String[] args) {
 
