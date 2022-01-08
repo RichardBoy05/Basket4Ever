@@ -191,7 +191,7 @@ public class FrameB extends JFrame {
 		initComponents();
 		buildUI();
 		eventsHandling();
-		fillTables();
+		//fillTables();
 
 	}
 

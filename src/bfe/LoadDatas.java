@@ -18,7 +18,12 @@ public class LoadDatas implements ActionListener {
 
 		List<String> savedTitles = SQlite.getSavedList();
 		
-
+		String code = CodeTranslator.translateCode(frame.getCode());
+		
+		
 	}
+		
+
+	
 
 }
