@@ -222,8 +222,8 @@ public class FrameB extends JFrame {
 
 	private void initComponents() {
 
-		overviewLab.setBounds(90, 52, 235, 36);
-		overviewLab.setText(code + " " + (DATE_FORMATTER.format(date)));
+		overviewLab.setBounds(74, 55, 461, 36);
+		overviewLab.setText(CodeTranslator.translateCode(getCode()) + " " + (DATE_FORMATTER.format(date)));
 
 		backLab.setBounds(0, 0, 1130, 670);
 		link.setBounds(109, 648, 216, 20);

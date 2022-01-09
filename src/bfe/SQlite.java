@@ -70,13 +70,14 @@ public class SQlite {
 		try {
 			
 			Connection con = getConnection();		
-			PreparedStatement stat = con.prepareStatement("SELECT code, date FROM " + TABLE);		
+			PreparedStatement stat = con.prepareStatement("SELECT code, date, id FROM " + TABLE);		
 			ResultSet result = stat.executeQuery();
 			
 			while(result.next()) {
 				
 				list.add(result.getString(1));
 				list.add(result.getString(2));
+				list.add(result.getString(3));
 				
 			}
 			
@@ -88,5 +89,18 @@ public class SQlite {
 		
 		return list;
 	}
+	
+	public static String[] getSavedStats(int id) {
+		
+		String[] result = null;
+		
+		return result;
+	}
+	
+	public static void deleteSaved(int id) {
+		
+		
+	}
+	
 
 }

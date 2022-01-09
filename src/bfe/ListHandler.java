@@ -134,7 +134,8 @@ public class ListHandler implements ItemListener {
 				frame.getLevelcb().addItem("Regionale");
 			}
 
-			default -> JOptionPane.showMessageDialog(null, "Errore imprevisto nella classificazione dei gironi. Effettua una segnalazione!");
+			default -> JOptionPane.showMessageDialog(null,
+					"Errore imprevisto nella classificazione dei gironi. Effettua una segnalazione!");
 
 			}
 
@@ -143,10 +144,11 @@ public class ListHandler implements ItemListener {
 		if (e.getSource().equals(frame.getLevelcb()) && e.getStateChange() == ItemEvent.SELECTED) {
 
 			char first = BuildUrl.getFirstChar(frame.getGendercb().getSelectedItem().toString());
-			char second = BuildUrl.getSecondChar(frame.getYearcb().getSelectedItem().toString(), frame.getGendercb().getSelectedItem().toString());
+			char second = BuildUrl.getSecondChar(frame.getYearcb().getSelectedItem().toString(),
+					frame.getGendercb().getSelectedItem().toString());
 			char third = BuildUrl.getThirdChar(frame.getLevelcb().getSelectedItem().toString());
 			char fourth = BuildUrl.getFourthChar(frame.getFasecb().getSelectedItem().toString());
-			
+
 			builder.append(first);
 			builder.append(second);
 			builder.append(third);
@@ -155,12 +157,14 @@ public class ListHandler implements ItemListener {
 			frame.getGroupcb().removeAllItems();
 
 			String code = builder.toString();
-			
+
 			if (code.contains("@")) {
-				JOptionPane.showMessageDialog(null, "Errore imprevisto nella classificazione dei gironi. Effettua una segnalazione!");
+				JOptionPane.showMessageDialog(null,
+						"Errore imprevisto nella classificazione dei gironi. Effettua una segnalazione!");
 			}
-			
+
 			builder.delete(0, builder.length());
+
 			String line;
 			String[] arrayline = new String[5];
 
@@ -172,7 +176,7 @@ public class ListHandler implements ItemListener {
 
 					arrayline = line.split(";");
 					if (arrayline[0].substring(0, arrayline[0].length() - 1).equals(code)) {
-						frame.getGroupcb().addItem(arrayline[4].toString());
+						frame.getGroupcb().addItem(arrayline[4]);
 					}
 
 				}
@@ -186,7 +190,7 @@ public class ListHandler implements ItemListener {
 		}
 
 		if (e.getSource().equals(frame.getFasecb()) && e.getStateChange() == ItemEvent.SELECTED) {
-			
+
 			if (frame.getFasecb().getSelectedIndex() == 1) {
 				frame.getGroupcb().removeAllItems();
 				frame.getGroupcb().addItem("Nessun girone disponibile!");
@@ -204,13 +208,11 @@ public class ListHandler implements ItemListener {
 				for (String temp : before_changing) {
 					frame.getLevelcb().addItem(temp);
 				}
-				
+
 				frame.getLevelcb().setSelectedIndex(before_selection);
 			}
 
 		}
-		
-
 	}
 
 }
