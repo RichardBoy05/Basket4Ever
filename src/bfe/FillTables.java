@@ -2,7 +2,7 @@ package bfe;
 
 import javax.swing.JOptionPane;
 
-public class FillTables { 
+public class FillTables {
 
 	private FrameB frame;
 
@@ -19,6 +19,10 @@ public class FillTables {
 	}
 
 	private void fillTeams() {
+
+		if (frame.getTeamsModel().getRowCount() > 0) {
+			frame.getTeamsModel().setRowCount(0);
+		}
 
 		String[][] teams = frame.getTeams();
 
@@ -50,6 +54,34 @@ public class FillTables {
 
 	private void fillPlayers(int section) {
 
+		switch (section) {
+
+		case 0 -> {
+			if (frame.getPlayersModel1().getRowCount() > 0) {
+				frame.getPlayersModel1().setRowCount(0);
+			}
+		}
+		
+		case 1 -> {
+			if (frame.getPlayersModel2().getRowCount() > 0) {
+				frame.getPlayersModel2().setRowCount(0);
+			}
+		}
+		
+		case 2 -> {
+			if (frame.getPlayersModel3().getRowCount() > 0) {
+				frame.getPlayersModel3().setRowCount(0);
+			}
+		}
+		
+		case 3 -> {
+			if (frame.getPlayersModel4().getRowCount() > 0) {
+				frame.getPlayersModel4().setRowCount(0);
+			}
+		}
+
+		}
+
 		int counter = 1;
 
 		switch (section) {
@@ -78,13 +110,13 @@ public class FillTables {
 				yield null;
 			}
 			};
-			
+
 			double ppgDouble = (double) (Integer.parseInt(points)) / (Integer.parseInt(games));
 			double ppgDoubleAdjusted = ((int) (ppgDouble * 10)) / 10.0;
 			String ppg = Double.toString(ppgDoubleAdjusted);
 
-			String[] row = { counterStr, player, points, ppg, games};
-		
+			String[] row = { counterStr, player, points, ppg, games };
+
 			switch (section) {
 
 			case 0 -> frame.getPlayersModel1().addRow(row);
@@ -93,8 +125,7 @@ public class FillTables {
 			case 3 -> frame.getPlayersModel4().addRow(row);
 
 			}
-			
-			
+
 			counter++;
 
 		}

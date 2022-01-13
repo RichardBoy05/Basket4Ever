@@ -191,7 +191,7 @@ public class FrameB extends JFrame {
 		initComponents();
 		buildUI();
 		eventsHandling();
-		//fillTables();
+		fillTables();
 
 	}
 
@@ -486,7 +486,7 @@ public class FrameB extends JFrame {
 
 	}
 
-	private void fillTables() {
+	public void fillTables() {
 
 		new FillTables(this);
 
@@ -575,6 +575,34 @@ public class FrameB extends JFrame {
 	public List<Integer> getThrees() {
 		return threes;
 	}
+	
+	public void setTeams(String[][] teams) {
+		this.teams = teams;
+	}
+
+	public void setPlayers(List<String> players) {
+		this.players = players;
+	}
+
+	public void setPoints(List<Integer> points) {
+		this.points = points;
+	}
+
+	public void setGames(List<Integer> games) {
+		this.games = games;
+	}
+
+	public void setTls(List<Integer> tls) {
+		this.tls = tls;
+	}
+
+	public void setTwos(List<Integer> twos) {
+		this.twos = twos;
+	}
+
+	public void setThrees(List<Integer> threes) {
+		this.threes = threes;
+	}
 
 	public void setIndexes(int[] indexes) {
 		this.indexes = indexes;
@@ -598,5 +626,9 @@ public class FrameB extends JFrame {
 
 	public ImageIcon getSavedButIcon() {
 		return saved;
+	}
+	
+	public JLabel getOverViewLab() {
+		return overviewLab;
 	}
 }

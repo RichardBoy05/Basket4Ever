@@ -64,43 +64,75 @@ public class SQlite {
 	}
 
 	public static List<String> getSavedList() {
-		
+
 		List<String> list = new ArrayList<String>();
 
 		try {
-			
-			Connection con = getConnection();		
-			PreparedStatement stat = con.prepareStatement("SELECT code, date, id FROM " + TABLE);		
+
+			Connection con = getConnection();
+			PreparedStatement stat = con.prepareStatement("SELECT code, date, id FROM " + TABLE);
 			ResultSet result = stat.executeQuery();
-			
-			while(result.next()) {
-				
+
+			while (result.next()) {
+
 				list.add(result.getString(1));
 				list.add(result.getString(2));
 				list.add(result.getString(3));
-				
+
 			}
-			
+
 		} catch (Exception e) {
-			
+
 			JOptionPane.showMessageDialog(null, "Database irraggiungibile!\n" + e);
 			return null;
 		}
-		
+
 		return list;
 	}
-	
-	public static String[] getSavedStats(int id) {
-		
-		String[] result = null;
-		
-		return result;
+
+	public static List<String> getSavedStats(int id) {
+
+		List<String> list = new ArrayList<String>();
+
+		try {
+
+			Connection con = getConnection();
+			PreparedStatement stat = con.prepareStatement(
+					"SELECT code, date, teams, players, games, points, tls, twos, threes FROM " + TABLE + " WHERE id = " + id);
+			ResultSet result = stat.executeQuery();
+
+			while (result.next()) {
+
+				for (int i = 1; i < 10; i++) {
+
+					list.add(result.getString(i));
+
+				}
+			}
+
+		} catch (Exception e) {
+
+			JOptionPane.showMessageDialog(null, "Database irraggiungibile!\n" + e);
+			return null;
+		}
+
+		return list;
 	}
-	
+
 	public static void deleteSaved(int id) {
-		
-		
+
+		try {
+
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("DELETE FROM " + TABLE + " WHERE id = " + id);
+
+			statement.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Salvataggio eliminato!");
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Database irraggiungibile!\n" + e);
+		}
+
 	}
-	
 
 }

@@ -2,13 +2,17 @@ package bfe;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class LoadDatas implements ActionListener {
 
 	private FrameB frame;
+	private String[] items = new String[5];
 	private JComboBox<String> cb;
 
 	public LoadDatas(FrameB frame) {
@@ -31,17 +35,11 @@ public class LoadDatas implements ActionListener {
 			ids[j] = savedList.get(i + 2);
 		}
 
-		int choice = showGui(orderedSavedList);
-		System.out.println(choice);
+		items = new String[orderedSavedList.length];
 
-	}
-
-	private int showGui(String[][] list) {
-
-		String[] items = new String[list.length];
 		int counter = 0;
 
-		for (String[] current : list) {
+		for (String[] current : orderedSavedList) {
 
 			items[counter] = current[0] + ", in data " + current[1];
 
@@ -49,31 +47,133 @@ public class LoadDatas implements ActionListener {
 
 		}
 
+		String choice = showGui(items);
+
+		if (choice != null) {
+
+			runQuery(choice, ids);
+
+		}
+
+	}
+
+	private String showGui(String[] items) {
+
 		cb = new JComboBox<String>(items);
+
 		int selection = JOptionPane.showConfirmDialog(frame, cb, "Seleziona il girone", JOptionPane.OK_CANCEL_OPTION);
 		int index = cb.getSelectedIndex();
-		
+
 		if (selection == 0) {
-					
-			Object[] choices = {"Mostra", "Elimina"};
-			Object defaultChoice = choices[0];
-			int secondChoices = JOptionPane.showOptionDialog(frame,
-					"Scegli che azione effettuare con il girone selezionato",
-					"Scegli un'opzione",
-					JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE,
-					null,
-					choices,
-					defaultChoice);
-			
-			if (secondChoices == 0) {
-				return index;
+
+			Object[] choices = { "Mostra", "Elimina" };
+
+			int showOrDelete = JOptionPane.showOptionDialog(frame,
+					"Scegli che azione effettuare con il girone selezionato", "Scegli un'opzione",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
+
+			if (showOrDelete == 0) {
+				return Integer.toString(index) + "s";
 			} else {
-				return index;
+				return Integer.toString(index) + "d";
 			}
-		} 
-		
-		return -1;
+		}
+
+		return null;
+
+	}
+
+	private void runQuery(String choice, String[] ids) {
+
+		int length = choice.length();
+		int value;
+		int id;
+
+		if (choice.substring(length - 1).equals("s")) {
+
+			value = Integer.parseInt(choice.substring(0, length - 1));
+			id = Integer.parseInt(ids[value]);
+			showChanges(SQlite.getSavedStats(id));
+
+		} else {
+
+			value = Integer.parseInt(choice.substring(0, length - 1));
+			id = Integer.parseInt(ids[value]);
+			SQlite.deleteSaved(id);
+
+		}
+	}
+
+	private void showChanges(List<String> list) {
+
+		frame.getOverViewLab().setText(CodeTranslator.translateCode(list.get(0)) + ", " + list.get(1).toString());
+
+		String[][] teams = createTeamsArray(list.get(2));
+		frame.setTeams(teams);
+
+		frame.setPlayers(createStringList(list.get(3)));
+		frame.setGames(createIntegerList(list.get(4)));
+		frame.setPoints(createIntegerList(list.get(5)));
+		frame.setTls(createIntegerList(list.get(6)));
+		frame.setTwos(createIntegerList(list.get(7)));
+		frame.setThrees(createIntegerList(list.get(8)));
+
+		frame.fillTables();
+		frame.getIndividualModel().setRowCount(0);
+		frame.getPlayerName().setText(null);
+
+	}
+
+	private String[][] createTeamsArray(String raw) {
+
+		int length = (int) ((raw.chars().filter(num -> num == ';').count()) + 1);
+		String[][] result = new String[length][6];
+
+		String[] teams = raw.split(";");
+
+		for (int i = 0; i < teams.length; i++) {
+
+			String[] currentElements = teams[i].split(", ");
+
+			for (int j = 0; j < currentElements.length; j++) {
+
+				result[i][j] = currentElements[j];
+			}
+
+		}
+
+		return result;
+
+	}
+
+	private List<String> createStringList(String element) {
+
+		List<String> result = new ArrayList<>();
+		String[] values = element.split(",");
+
+		for (String currentValue : values) {
+
+			result.add(currentValue);
+
+		}
+
+		return result;
+
+	}
+
+	private List<Integer> createIntegerList(String element) {
+
+		List<Integer> result = new ArrayList<>();
+		String[] valuesStr = element.split(",");
+		int[] values = Arrays.stream(valuesStr).mapToInt(Integer::parseInt).toArray();
+
+		for (int currentValue : values) {
+
+			result.add(currentValue);
+
+		}
+
+		return result;
 
 	}
 
