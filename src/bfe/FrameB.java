@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,6 +29,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class FrameB extends JFrame {
@@ -100,7 +102,7 @@ public class FrameB extends JFrame {
 
 	private JTextField getPlayerTf = new JTextField();
 
-	// JTables and Models
+	// JTables, Models, Rendered
 
 	private JTable teamsTb = new JTable();
 	private JTable overallTb = new JTable();
@@ -126,6 +128,8 @@ public class FrameB extends JFrame {
 
 	private DefaultTableModel individualModel = new DefaultTableModel(new Object[][] {},
 			new String[] { "Giocatore", "G", "PTS", "PPG", "FT", "FTG", "2PTS", "2PG", "3PTS", "3PG" });
+	
+	private DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
 
 	// ImageIcons
 
@@ -189,9 +193,10 @@ public class FrameB extends JFrame {
 
 		setIcons();
 		initComponents();
+		adjustTables();
 		buildUI();
 		eventsHandling();
-		fillTables();
+		//fillTables();
 
 	}
 
@@ -299,48 +304,6 @@ public class FrameB extends JFrame {
 		threePane.setLayout(new BorderLayout());
 		individualPane.setLayout(new BorderLayout());
 
-		teamsTb.setModel(teamsModel);
-		teamsTb.setRowHeight(60);
-		teamsTb.setColumnSelectionAllowed(false);
-		teamsTb.setRowSelectionAllowed(false);
-		teamsTb.getTableHeader().setReorderingAllowed(false);
-		teamsTb.setDefaultEditor(Object.class, null);
-
-		overallTb.setModel(playersModel1);
-		overallTb.setRowHeight(31);
-		overallTb.setColumnSelectionAllowed(false);
-		overallTb.setRowSelectionAllowed(false);
-		overallTb.getTableHeader().setReorderingAllowed(false);
-		overallTb.setDefaultEditor(Object.class, null);
-
-		tlTb.setModel(playersModel2);
-		tlTb.setRowHeight(31);
-		tlTb.setColumnSelectionAllowed(false);
-		tlTb.setRowSelectionAllowed(false);
-		tlTb.getTableHeader().setReorderingAllowed(false);
-		tlTb.setDefaultEditor(Object.class, null);
-
-		twoTb.setModel(playersModel3);
-		twoTb.setRowHeight(31);
-		twoTb.setColumnSelectionAllowed(false);
-		twoTb.setRowSelectionAllowed(false);
-		twoTb.getTableHeader().setReorderingAllowed(false);
-		twoTb.setDefaultEditor(Object.class, null);
-
-		threeTb.setModel(playersModel4);
-		threeTb.setRowHeight(31);
-		threeTb.setColumnSelectionAllowed(false);
-		threeTb.setRowSelectionAllowed(false);
-		threeTb.getTableHeader().setReorderingAllowed(false);
-		threeTb.setDefaultEditor(Object.class, null);
-
-		individualTb.setModel(individualModel);
-		individualTb.setRowHeight(72);
-		individualTb.setColumnSelectionAllowed(false);
-		individualTb.setRowSelectionAllowed(false);
-		individualTb.getTableHeader().setReorderingAllowed(false);
-		individualTb.setDefaultEditor(Object.class, null);
-
 		tabbedPane.setBounds(670, 146, 416, 360);
 		getPlayerTf.setBounds(52, 589, 113, 30);
 		individualPane.setBounds(260, 534, 829, 93);
@@ -348,6 +311,87 @@ public class FrameB extends JFrame {
 		searchBut.setBounds(167, 591, 89, 23);
 		homeBut.setBounds(10, 607, 35, 30);
 
+	}
+	
+	private void adjustTables() {
+		
+		cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+	
+		teamsTb.setModel(teamsModel);
+		
+		for (int i = 0; i < teamsTb.getColumnCount(); i++) {
+			teamsTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);			
+		}
+		
+		teamsTb.getColumnModel().getColumn(1).setPreferredWidth(200);
+		
+		teamsTb.setRowHeight(60);
+		teamsTb.setColumnSelectionAllowed(false);
+		teamsTb.setRowSelectionAllowed(false);
+		teamsTb.getTableHeader().setReorderingAllowed(false);
+		teamsTb.setDefaultEditor(Object.class, null);
+
+		overallTb.setModel(playersModel1);
+		
+		for (int i = 0; i < overallTb.getColumnCount(); i++) {
+			overallTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);			
+		}
+		
+		overallTb.setRowHeight(31);
+		overallTb.setColumnSelectionAllowed(false);
+		overallTb.setRowSelectionAllowed(false);
+		overallTb.getTableHeader().setReorderingAllowed(false);
+		overallTb.setDefaultEditor(Object.class, null);
+
+		tlTb.setModel(playersModel2);
+		
+		for (int i = 0; i < tlTb.getColumnCount(); i++) {
+			tlTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);			
+		}
+		
+		tlTb.setRowHeight(31);
+		tlTb.setColumnSelectionAllowed(false);
+		tlTb.setRowSelectionAllowed(false);
+		tlTb.getTableHeader().setReorderingAllowed(false);
+		tlTb.setDefaultEditor(Object.class, null);
+
+		twoTb.setModel(playersModel3);
+		
+		for (int i = 0; i < twoTb.getColumnCount(); i++) {
+			twoTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);			
+		}
+		
+		twoTb.setRowHeight(31);
+		twoTb.setColumnSelectionAllowed(false);
+		twoTb.setRowSelectionAllowed(false);
+		twoTb.getTableHeader().setReorderingAllowed(false);
+		twoTb.setDefaultEditor(Object.class, null);
+
+		threeTb.setModel(playersModel4);
+		
+		for (int i = 0; i < threeTb.getColumnCount(); i++) {
+			threeTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);			
+		}
+		
+		threeTb.setRowHeight(31);
+		threeTb.setColumnSelectionAllowed(false);
+		threeTb.setRowSelectionAllowed(false);
+		threeTb.getTableHeader().setReorderingAllowed(false);
+		threeTb.setDefaultEditor(Object.class, null);
+
+		individualTb.setModel(individualModel);
+		
+		for (int i = 0; i < individualTb.getColumnCount(); i++) {
+			individualTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);			
+		}
+		
+		individualTb.setRowHeight(72);
+		individualTb.setColumnSelectionAllowed(false);
+		individualTb.setRowSelectionAllowed(false);
+		individualTb.getTableHeader().setReorderingAllowed(false);
+		individualTb.setDefaultEditor(Object.class, null);
+
+		
 	}
 
 	private void buildUI() {
@@ -514,6 +558,10 @@ public class FrameB extends JFrame {
 	public Dimension getFrameSize() {
 
 		return frameSize;
+	}
+
+	public JTable getTeamsTb() {
+		return teamsTb;
 	}
 
 	public DefaultTableModel getTeamsModel() {

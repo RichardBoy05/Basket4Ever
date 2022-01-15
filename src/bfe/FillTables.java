@@ -38,7 +38,7 @@ public class FillTables {
 			pointsStr = Integer.toString(points);
 
 			row[0] = placeStr;
-			row[1] = teams[i][0];
+			row[1] = Utils.capitalizeString(teams[i][0]);
 			row[2] = pointsStr;
 			row[3] = teams[i][1];
 			row[4] = teams[i][2];
@@ -110,7 +110,9 @@ public class FillTables {
 				yield null;
 			}
 			};
-
+			
+			player = Utils.capitalizeString(player);
+			
 			double ppgDouble = (double) (Integer.parseInt(points)) / (Integer.parseInt(games));
 			double ppgDoubleAdjusted = ((int) (ppgDouble * 10)) / 10.0;
 			String ppg = Double.toString(ppgDoubleAdjusted);

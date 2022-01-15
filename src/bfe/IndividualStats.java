@@ -68,7 +68,7 @@ public class IndividualStats implements ActionListener {
 
 		String[] row = new String[10];
 
-		String player = frame.getPlayers().get(index);
+		String player = Utils.capitalizeString(frame.getPlayers().get(index));
 		String games = frame.getGames().get(index).toString();
 		String points = frame.getPoints().get(index).toString();
 		String tls = frame.getTls().get(index).toString();

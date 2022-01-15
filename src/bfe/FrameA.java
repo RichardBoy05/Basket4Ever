@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -210,7 +211,7 @@ public class FrameA extends JFrame {//
 
 		Font comboFont = new Font("Arial", Font.PLAIN, 15);
 		Font barFont = new Font("", Font.BOLD, 16);
-
+		
 		gendercb.setFont(comboFont);
 		yearcb.setFont(comboFont);
 		levelcb.setFont(comboFont);
