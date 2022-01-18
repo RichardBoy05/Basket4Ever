@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -157,6 +156,10 @@ public class FrameB extends JFrame {
 	private ImageIcon hovermail = new ImageIcon(getClass().getClassLoader().getResource("hovermail.png"));
 	private ImageIcon logolc = new ImageIcon(getClass().getClassLoader().getResource("logolcB.png"));
 	private ImageIcon hoverlogolc = new ImageIcon(getClass().getClassLoader().getResource("hoverlogolcB.png"));
+	private ImageIcon home = new ImageIcon(getClass().getClassLoader().getResource("home.png"));
+	private ImageIcon hoverhome = new ImageIcon(getClass().getClassLoader().getResource("hoverhome.png"));
+	private ImageIcon search = new ImageIcon(getClass().getClassLoader().getResource("search.png"));
+	private ImageIcon hoversearch = new ImageIcon(getClass().getClassLoader().getResource("hoversearch.png"));
 
 	// Images
 
@@ -196,7 +199,7 @@ public class FrameB extends JFrame {
 		adjustTables();
 		buildUI();
 		eventsHandling();
-		//fillTables();
+		fillTables();
 
 	}
 
@@ -222,6 +225,10 @@ public class FrameB extends JFrame {
 		mailBut.setRolloverIcon(hovermail);
 		lombCanBut.setIcon(logolc);
 		lombCanBut.setRolloverIcon(hoverlogolc);
+		homeBut.setIcon(home);
+		homeBut.setRolloverIcon(hoverhome);
+		searchBut.setIcon(search);
+		searchBut.setRolloverIcon(hoversearch);
 
 	}
 
@@ -292,8 +299,20 @@ public class FrameB extends JFrame {
 		lombCanBut.setFocusPainted(false);
 		lombCanBut.setFocusable(false);
 		lombCanBut.setBounds(90, 648, 20, 20);
+		
+		homeBut.setBorder(null);
+		homeBut.setContentAreaFilled(false);
+		homeBut.setFocusPainted(false);
+		homeBut.setFocusable(false);
+		homeBut.setBounds(3, 604, 35, 35);
 
-		teamsPane.setBounds(52, 169, 548, 329);
+		searchBut.setBorder(null);
+		searchBut.setContentAreaFilled(false);
+		searchBut.setFocusPainted(false);
+		searchBut.setFocusable(false);
+		searchBut.setBounds(218, 564, 52, 61);
+		
+		teamsPane.setBounds(52, 158, 641, 343);
 		teamsPane.setLayout(new BorderLayout());
 		teamsPane.setBorder(raisedBevel);
 
@@ -304,12 +323,9 @@ public class FrameB extends JFrame {
 		threePane.setLayout(new BorderLayout());
 		individualPane.setLayout(new BorderLayout());
 
-		tabbedPane.setBounds(670, 146, 416, 360);
-		getPlayerTf.setBounds(52, 589, 113, 30);
-		individualPane.setBounds(260, 534, 829, 93);
-
-		searchBut.setBounds(167, 591, 89, 23);
-		homeBut.setBounds(10, 607, 35, 30);
+		tabbedPane.setBounds(728, 135, 352, 366);
+		getPlayerTf.setBounds(52, 577, 156, 30);
+		individualPane.setBounds(286, 536, 795, 89);
 
 	}
 	
@@ -422,7 +438,7 @@ public class FrameB extends JFrame {
 		threePane.add(threeTb.getTableHeader(), BorderLayout.NORTH);
 		threePane.add(threeTb, BorderLayout.CENTER);
 		individualPane.add(individualTb.getTableHeader(), BorderLayout.NORTH);
-		individualPane.add(individualTb, BorderLayout.CENTER);
+		individualPane.add(individualTb, BorderLayout.WEST);
 		tabbedPane.addTab("Punti", null, overallPane, "Top 10 realizzatori del girone");
 		tabbedPane.addTab("Tiri liberi", null, tlPane, "Top 10 realizzatori di tiri liberi del girone");
 		tabbedPane.addTab("Tiri da 2", null, twoPane, "Top 10 realizzatori di tiri da 2 segnati del girone");
