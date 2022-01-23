@@ -20,13 +20,14 @@ public class SecondThread extends SwingWorker<Void, String> {
 
 	private String code;
 	private List<String> players = new ArrayList<>();
+	private List<String> playerHomes = new ArrayList<>();
 	private List<Integer> points = new ArrayList<>();
 	private List<Integer> games = new ArrayList<>();
 	private List<Integer> tls = new ArrayList<>();
 	private List<Integer> twos = new ArrayList<>();
 	private List<Integer> threes = new ArrayList<>();
-	private int[] indexes = new int[10];
 	private String[][] teamStats;
+	private int[] indexes = new int[10];
 
 	public SecondThread(String gender, String[] ids, JProgressBar bar, JLabel text, JFrame frame) {
 
@@ -64,7 +65,7 @@ public class SecondThread extends SwingWorker<Void, String> {
 
 				try {
 					
-					FrameB frame = new FrameB(code, teamStats, players, points, tls, twos, threes, games);
+					FrameB frame = new FrameB(code, teamStats, players, playerHomes, points, tls, twos, threes, games);
 					frame.setVisible(true);					
 					
 				} catch (Exception e) {
@@ -89,6 +90,14 @@ public class SecondThread extends SwingWorker<Void, String> {
 
 	public List<String> getPlayers() {
 		return players;
+	}
+	
+	public void setPlayerHomes(ArrayList<String> playerHomes) {
+		this.playerHomes = playerHomes;
+	}
+	
+	public List<String> getPlayerHomes() {
+		return playerHomes;
 	}
 
 	public void setPoints(ArrayList<Integer> points) {

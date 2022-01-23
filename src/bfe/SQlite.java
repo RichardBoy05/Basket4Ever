@@ -41,14 +41,14 @@ public class SQlite {
 		return conn;
 	}
 
-	public static void save(String code, String date, String teams, String players, String games, String points,
+	public static void save(String code, String date, String teams, String players, String playerHomes, String games, String points,
 			String tls, String twos, String threes, JButton button, ImageIcon icon) {
 
 		try {
 			Connection con = getConnection();
 			PreparedStatement posted = con.prepareStatement(
-					"INSERT INTO " + TABLE + " (code, date, teams, players, games, points, tls, twos, threes) VALUES ('"
-							+ code + "','" + date + "','" + teams + "','" + players + "','" + games + "','" + points
+					"INSERT INTO " + TABLE + " (code, date, teams, players, playerHomes, games, points, tls, twos, threes) VALUES ('"
+							+ code + "','" + date + "','" + teams + "','" + players + "','" + playerHomes + "','" + games + "','" + points
 							+ "','" + tls + "','" + twos + "','" + threes + "')");
 
 			posted.executeUpdate();
@@ -98,14 +98,14 @@ public class SQlite {
 
 			Connection con = getConnection();
 			PreparedStatement stat = con.prepareStatement(
-					"SELECT code, date, teams, players, games, points, tls, twos, threes FROM " + TABLE + " WHERE id = " + id);
+					"SELECT code, date, teams, players, playerHomes, games, points, tls, twos, threes FROM " + TABLE + " WHERE id = " + id);
 			ResultSet result = stat.executeQuery();
 
 			while (result.next()) {
 
-				for (int i = 1; i < 10; i++) {
+				for (int i = 1; i < 11; i++) {
 
-					list.add(result.getString(i));
+					list.add(result.getString(i).replaceAll("&", "'"));
 
 				}
 			}

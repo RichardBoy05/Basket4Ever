@@ -46,6 +46,7 @@ public class FrameB extends JFrame {
 	private String code;
 	private String[][] teams;
 	private List<String> players;
+	private List<String> playerHomes;
 	private List<Integer> points;
 	private List<Integer> games = new ArrayList<>();
 	private List<Integer> tls;
@@ -114,19 +115,19 @@ public class FrameB extends JFrame {
 			new String[] { "#", "Squadra", "Punti", "Giocate", "Vinte", "Perse", "Punti fatti", "Punti subiti" });
 
 	private DefaultTableModel playersModel1 = new DefaultTableModel(new Object[][] {},
-			new String[] { "#", "Giocatore", "PTS", "PPG", "PG" });
+			new String[] { "#", "Giocatore", "Squadra", "PTS", "PPG", "PG" });
 
 	private DefaultTableModel playersModel2 = new DefaultTableModel(new Object[][] {},
-			new String[] { "#", "Giocatore", "TL", "TPG", "PG" });
+			new String[] { "#", "Giocatore", "Squadra", "TL", "TPG", "PG" });
 
 	private DefaultTableModel playersModel3 = new DefaultTableModel(new Object[][] {},
-			new String[] { "#", "Giocatore", "2PTS", "2PG", "PG" });
+			new String[] { "#", "Giocatore", "Squadra", "2PTS", "2PG", "PG" });
 
 	private DefaultTableModel playersModel4 = new DefaultTableModel(new Object[][] {},
-			new String[] { "#", "Giocatore", "3PTS", "3PG", "PG" });
+			new String[] { "#", "Giocatore", "Squadra", "3PTS", "3PG", "PG" });
 
 	private DefaultTableModel individualModel = new DefaultTableModel(new Object[][] {},
-			new String[] { "Giocatore", "G", "PTS", "PPG", "FT", "FTG", "2PTS", "2PG", "3PTS", "3PG" });
+			new String[] { "Giocatore", "Squadra", "G", "PTS", "PPG", "FT", "FTG", "2PTS", "2PG", "3PTS", "3PG" });
 	
 	private DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
 
@@ -168,7 +169,7 @@ public class FrameB extends JFrame {
 	private Image image3 = x32.getImage();
 	private Image[] images = { image1, image2, image3 };
 
-	public FrameB(String code, String[][] teams, List<String> players, List<Integer> points, List<Integer> tls,
+	public FrameB(String code, String[][] teams, List<String> players, List<String> playerHomes, List<Integer> points, List<Integer> tls,
 			List<Integer> twos, List<Integer> threes, List<Integer> games) {
 
 		// Initializating global variables
@@ -176,6 +177,7 @@ public class FrameB extends JFrame {
 		this.code = code;
 		this.teams = teams;
 		this.players = players;
+		this.playerHomes = playerHomes;
 		this.points = points;
 		this.games = games;
 		this.tls = tls;
@@ -646,6 +648,14 @@ public class FrameB extends JFrame {
 
 	public void setPlayers(List<String> players) {
 		this.players = players;
+	}
+
+	public List<String> getPlayerHomes() {
+		return playerHomes;
+	}
+
+	public void setPlayerHomes(List<String> playerHomes) {
+		this.playerHomes = playerHomes;
 	}
 
 	public void setPoints(List<Integer> points) {

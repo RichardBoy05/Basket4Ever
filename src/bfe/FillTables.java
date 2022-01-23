@@ -97,6 +97,7 @@ public class FillTables {
 
 			String counterStr = Integer.toString(counter);
 			String player = frame.getPlayers().get(frame.getIndexes()[i]);
+			String playerHome = frame.getPlayerHomes().get(frame.getIndexes()[i]);
 			String games = frame.getGames().get(frame.getIndexes()[i]).toString();
 
 			String points = switch (section) {
@@ -112,12 +113,13 @@ public class FillTables {
 			};
 			
 			player = Utils.capitalizeString(player);
+			playerHome = Utils.capitalizeString(playerHome);
 			
 			double ppgDouble = (double) (Integer.parseInt(points)) / (Integer.parseInt(games));
 			double ppgDoubleAdjusted = ((int) (ppgDouble * 10)) / 10.0;
 			String ppg = Double.toString(ppgDoubleAdjusted);
 
-			String[] row = { counterStr, player, points, ppg, games };
+			String[] row = { counterStr, player, playerHome, points, ppg, games };
 
 			switch (section) {
 

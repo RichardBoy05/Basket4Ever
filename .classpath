@@ -7,17 +7,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Admin/Downloads/jsoup-1.14.3.jar">
+	<classpathentry kind="lib" path="D:/richard/programmazione/librerie/jsoup-1.14.3.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/richard/programmazione/databases/sqlite/sqlite-jdbc-3.32.3.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Admin/Downloads/KGradientPanel.jar">
+	<classpathentry kind="lib" path="D:/richard/programmazione/librerie/sqlite-jdbc-3.32.3.2.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

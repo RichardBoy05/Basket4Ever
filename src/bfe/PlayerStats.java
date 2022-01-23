@@ -11,13 +11,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class PlayerStats {
-	
+
 	private SecondThread secondThread;
-	
+
 	public PlayerStats(SecondThread secondThread) {
 		this.secondThread = secondThread;
 	}
-	
 
 	public void statsPlayer(String gender, String id1, String id2, JProgressBar bar, JLabel text) {
 
@@ -27,6 +26,7 @@ public class PlayerStats {
 		int currentMatch = 0;
 
 		ArrayList<String> totPlayers = new ArrayList<>();
+		ArrayList<String> totPlayerHomes = new ArrayList<>();
 		ArrayList<Integer> totPoints = new ArrayList<>();
 		ArrayList<Integer> totGames = new ArrayList<>();
 		ArrayList<Integer> totTls = new ArrayList<>();
@@ -44,7 +44,9 @@ public class PlayerStats {
 						+ "Effettua una segnalazione mediante il pulsante \"Mail\" in basso a destra!");
 			}
 
-			ArrayList<String> players = getPlayersList(html, gender);
+			ArrayList<ArrayList<String>> playersAndHomes = getPlayersAndHomesList(html, gender);
+			ArrayList<String> players = playersAndHomes.get(0);
+			ArrayList<String> playerHomes = playersAndHomes.get(1);
 			ArrayList<String> points = getPointsList(html, gender);
 			ArrayList<String> others = getOthersList(html);
 
@@ -53,6 +55,7 @@ public class PlayerStats {
 				for (int j = 0; j < points.size(); j++) {
 
 					totPlayers.add(players.get(j));
+					totPlayerHomes.add(playerHomes.get(j));
 					totPoints.add(Integer.parseInt((points.get(j))));
 
 				}
@@ -92,12 +95,14 @@ public class PlayerStats {
 		while (i <= max) {
 
 			String currentPlayer = totPlayers.get(i);
+			String currentHome = totPlayerHomes.get(i);
 			int amount = totPoints.get(i);
 			int amounttls = totTls.get(i);
 			int amounttwos = totTwos.get(i);
 			int amountthrees = totThrees.get(i);
 			int games = 1;
 			totPlayers.remove(i);
+			totPlayerHomes.remove(i);
 			totPoints.remove(i);
 			totTls.remove(i);
 			totTwos.remove(i);
@@ -111,6 +116,7 @@ public class PlayerStats {
 				amountthrees += totThrees.get(index);
 				games += 1;
 				totPlayers.remove(index);
+				totPlayerHomes.remove(index);
 				totPoints.remove(index);
 				totTls.remove(index);
 				totTwos.remove(index);
@@ -119,6 +125,7 @@ public class PlayerStats {
 			}
 
 			totPlayers.add(i, currentPlayer);
+			totPlayerHomes.add(i, currentHome);
 			totPoints.add(i, amount);
 			totTls.add(i, amounttls);
 			totTwos.add(i, amounttwos);
@@ -129,21 +136,23 @@ public class PlayerStats {
 
 			i++;
 		}
-		
+
 		secondThread.setPlayers(totPlayers);
+		secondThread.setPlayerHomes(totPlayerHomes);
 		secondThread.setPoints(totPoints);
 		secondThread.setTls(totTls);
 		secondThread.setTwos(totTwos);
 		secondThread.setThrees(totThrees);
 		secondThread.setGames(totGames);
-		
-		
+
 		bar.setMaximum(100);
 
 		return;
 	}
 
-	private static ArrayList<String> getPlayersList(Document html, String gender) {
+	private static ArrayList<ArrayList<String>> getPlayersAndHomesList(Document html, String gender) {
+
+		ArrayList<ArrayList<String>> output = new ArrayList<>();
 
 		String identifier = gender.equals("Maschile") ? "mas" : "fem";
 		Elements players = html.getElementsByTag("td");
@@ -158,6 +167,7 @@ public class PlayerStats {
 		}
 
 		ArrayList<String> giocatori = new ArrayList<>();
+		ArrayList<String> squadre = new ArrayList<>();
 
 		int i = 0;
 
@@ -174,10 +184,38 @@ public class PlayerStats {
 				if (i > startValue && !text.equals("-") && !text.equals("NE")) {
 
 					giocatori.add(text);
+					
+					Elements parents = player.parents(); // getting the team of each player
+
+					for (Element parent : parents) {
+
+						if (parent.id().equals("homeTable")) {
+
+							String result = parent.getElementById("homeTable").text();
+							int space = result.indexOf(" TL");
+
+							result = result.substring(0, space);
+
+							squadre.add(result);
+
+						} else if (parent.id().equals("awayTable")) {
+
+							String result = parent.getElementById("awayTable").text();
+							int space = result.indexOf(" TL");
+
+							result = result.substring(0, space);
+							squadre.add(result);
+						}
+					}
 
 					if (text.equals("Allenatore")) {
-						giocatori.remove(giocatori.size() - 1);
-						giocatori.remove(giocatori.size() - 1);
+						
+						for (int j = 0; j < 2; j++) {
+							
+							giocatori.remove(giocatori.size() - 1);
+							squadre.remove(squadre.size() - 1);
+							
+						}
 					}
 
 				}
@@ -186,8 +224,11 @@ public class PlayerStats {
 
 			i++;
 		}
+		
+		output.add(giocatori);
+		output.add(squadre);
 
-		return giocatori;
+		return output;
 	}
 
 	private static ArrayList<String> getPointsList(Document html, String gender) {

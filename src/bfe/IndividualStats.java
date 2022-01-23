@@ -66,9 +66,10 @@ public class IndividualStats implements ActionListener {
 
 	private void fillTable(int index) {
 
-		String[] row = new String[10];
+		String[] row = new String[11];
 
 		String player = Utils.capitalizeString(frame.getPlayers().get(index));
+		String playerHome = Utils.capitalizeString(frame.getPlayerHomes().get(index));
 		String games = frame.getGames().get(index).toString();
 		String points = frame.getPoints().get(index).toString();
 		String tls = frame.getTls().get(index).toString();
@@ -76,11 +77,12 @@ public class IndividualStats implements ActionListener {
 		String threes = frame.getThrees().get(index).toString();
 
 		row[0] = player;
-		row[1] = games;
-		row[2] = points;
-		row[4] = tls;
-		row[6] = twos;
-		row[8] = threes;
+		row[1] = playerHome;
+		row[2] = games;
+		row[4] = points;
+		row[6] = tls;
+		row[8] = twos;
+		row[10] = threes;
 
 		row[3] = getPercentage(points, games);
 		row[5] = getPercentage(tls, games);

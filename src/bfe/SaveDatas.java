@@ -29,13 +29,14 @@ public class SaveDatas implements ActionListener{
 		String date = frame.getdateFormatter().format(new Date(System.currentTimeMillis()));
 		String teams = matrixConverter(frame.getTeams());
 		String players = listConverter(frame.getPlayers());
+		String playerHomes = listConverter(frame.getPlayerHomes());
 		String games = listConverter(frame.getGames());
 		String points = listConverter(frame.getPoints());
 		String tls = listConverter(frame.getTls());
 		String twos = listConverter(frame.getTwos());
 		String threes = listConverter(frame.getThrees());
 		
-		SQlite.save(code, date, teams, players, games, points, tls, twos, threes, frame.getSaveBut(), frame.getSavedButIcon());
+		SQlite.save(code, date, teams, players, playerHomes, games, points, tls, twos, threes, frame.getSaveBut(), frame.getSavedButIcon());
 	
 		
 	}

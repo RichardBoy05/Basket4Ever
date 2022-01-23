@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -59,9 +58,21 @@ public class LoadDatas implements ActionListener {
 
 	private String showGui(String[] items) {
 
-		cb = new JComboBox<String>(items);
+		int selection;
 
-		int selection = JOptionPane.showConfirmDialog(frame, cb, "Seleziona il girone", JOptionPane.OK_CANCEL_OPTION);
+		if (items.length == 0) {
+			cb = new JComboBox<String>();
+			cb.addItem("Nessun salvataggio esistente!");
+			selection = JOptionPane.showConfirmDialog(frame, cb, "Seleziona il girone", JOptionPane.OK_CANCEL_OPTION);
+			return null;
+			
+		} else {
+
+			cb = new JComboBox<String>(items);
+			selection = JOptionPane.showConfirmDialog(frame, cb, "Seleziona il girone", JOptionPane.OK_CANCEL_OPTION);
+
+		}
+
 		int index = cb.getSelectedIndex();
 
 		if (selection == 0) {
@@ -112,11 +123,12 @@ public class LoadDatas implements ActionListener {
 		frame.setTeams(teams);
 
 		frame.setPlayers(createStringList(list.get(3)));
-		frame.setGames(createIntegerList(list.get(4)));
-		frame.setPoints(createIntegerList(list.get(5)));
-		frame.setTls(createIntegerList(list.get(6)));
-		frame.setTwos(createIntegerList(list.get(7)));
-		frame.setThrees(createIntegerList(list.get(8)));
+		frame.setPlayerHomes(createStringList(list.get(4)));
+		frame.setGames(createIntegerList(list.get(5)));
+		frame.setPoints(createIntegerList(list.get(6)));
+		frame.setTls(createIntegerList(list.get(7)));
+		frame.setTwos(createIntegerList(list.get(8)));
+		frame.setThrees(createIntegerList(list.get(9)));
 
 		frame.fillTables();
 		frame.getIndividualModel().setRowCount(0);
