@@ -3,7 +3,7 @@ package bfe;
 import java.awt.EventQueue;
 import javax.swing.JOptionPane;
 
-public class Main { // ricordati di sistemare i tooltiptext ed i final e i null da replacare nei joptionpanes
+public class Main { // ricordati di sistemare i tooltiptext ed i final e i null da replacare nei joptionpanes e sistema anche i msg nei joptionpanes
 
 	public static void main(String[] args) {
 
@@ -12,9 +12,9 @@ public class Main { // ricordati di sistemare i tooltiptext ed i final e i null 
 
 				try {
 
-					FrameA frame = new FrameA();
+					//FrameA frame = new FrameA();
+					FrameB frame = new FrameB(null, null, null, null, null, null, null, null, null);
 					frame.setVisible(true);
-					//FrameB frame = new FrameB("mi4qQ", null, null, null, null, null, null, null);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Errore nell'apertura dell'interfaccia\n" + e);
 				}

@@ -118,6 +118,7 @@ public class LoadDatas implements ActionListener {
 	private void showChanges(List<String> list) {
 
 		frame.getOverViewLab().setText(CodeTranslator.translateCode(list.get(0)) + ", " + list.get(1).toString());
+		frame.setCode(list.get(0));
 
 		String[][] teams = createTeamsArray(list.get(2));
 		frame.setTeams(teams);

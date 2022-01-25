@@ -91,6 +91,7 @@ public class FrameB extends JFrame {
 	private JButton lombCanBut = new JButton();
 	private JButton searchBut = new JButton();
 	private JButton homeBut = new JButton();
+	private JButton viewOnLcBut =  new JButton();
 
 	// JLabels
 
@@ -161,6 +162,8 @@ public class FrameB extends JFrame {
 	private ImageIcon hoverhome = new ImageIcon(getClass().getClassLoader().getResource("hoverhome.png"));
 	private ImageIcon search = new ImageIcon(getClass().getClassLoader().getResource("search.png"));
 	private ImageIcon hoversearch = new ImageIcon(getClass().getClassLoader().getResource("hoversearch.png"));
+	private ImageIcon biglogolc = new ImageIcon(getClass().getClassLoader().getResource("logolcC.png"));
+	private ImageIcon hoverbiglogolc = new ImageIcon(getClass().getClassLoader().getResource("hoverlogolcC.png"));
 
 	// Images
 
@@ -201,7 +204,7 @@ public class FrameB extends JFrame {
 		adjustTables();
 		buildUI();
 		eventsHandling();
-		fillTables();
+		//fillTables();
 
 	}
 
@@ -231,13 +234,15 @@ public class FrameB extends JFrame {
 		homeBut.setRolloverIcon(hoverhome);
 		searchBut.setIcon(search);
 		searchBut.setRolloverIcon(hoversearch);
+		viewOnLcBut.setIcon(biglogolc);
+		viewOnLcBut.setRolloverIcon(hoverbiglogolc);
 
 	}
 
 	private void initComponents() {
 
 		overviewLab.setBounds(74, 55, 461, 36);
-		overviewLab.setText(CodeTranslator.translateCode(getCode()) + " " + (DATE_FORMATTER.format(date)));
+		//overviewLab.setText(CodeTranslator.translateCode(getCode()) + " " + (DATE_FORMATTER.format(date)));
 
 		backLab.setBounds(0, 0, 1130, 670);
 		link.setBounds(109, 648, 216, 20);
@@ -313,6 +318,12 @@ public class FrameB extends JFrame {
 		searchBut.setFocusPainted(false);
 		searchBut.setFocusable(false);
 		searchBut.setBounds(218, 564, 52, 61);
+		
+		viewOnLcBut.setBorder(null);
+		viewOnLcBut.setContentAreaFilled(false);
+		viewOnLcBut.setFocusPainted(false);
+		viewOnLcBut.setFocusable(false);
+		viewOnLcBut.setBounds(745, 52, 57, 57);
 		
 		teamsPane.setBounds(52, 158, 641, 343);
 		teamsPane.setLayout(new BorderLayout());
@@ -414,6 +425,7 @@ public class FrameB extends JFrame {
 
 	private void buildUI() {
 
+		contentPane.add(viewOnLcBut);
 		contentPane.add(overviewLab);
 		contentPane.add(homeBut);
 		contentPane.add(link);
@@ -545,6 +557,7 @@ public class FrameB extends JFrame {
 		screenBut.addActionListener(new Screenshot(this));
 		saveBut.addActionListener(new SaveDatas(this));
 		loadBut.addActionListener(new LoadDatas(this));
+		viewOnLcBut.addActionListener(new ViewOnLc(this));
 
 	}
 
@@ -608,6 +621,10 @@ public class FrameB extends JFrame {
 
 	public String getCode() {
 		return code;
+	}
+	
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	public SimpleDateFormat getdateFormatter() {

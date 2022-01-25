@@ -148,7 +148,7 @@ public class BuildUrl {
 
 		} catch (Exception ex) {
 
-			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Il file 'groups.txt' è assente o danneggiato!\n" + ex);
 		}
 
 		ids[0] = idstart;
