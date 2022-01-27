@@ -2,6 +2,7 @@ package bfe;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +66,7 @@ public class LoadDatas implements ActionListener {
 			cb.addItem("Nessun salvataggio esistente!");
 			selection = JOptionPane.showConfirmDialog(frame, cb, "Seleziona il girone", JOptionPane.OK_CANCEL_OPTION);
 			return null;
-			
+
 		} else {
 
 			cb = new JComboBox<String>(items);
@@ -117,12 +118,15 @@ public class LoadDatas implements ActionListener {
 
 	private void showChanges(List<String> list) {
 
-		frame.getOverViewLab().setText(CodeTranslator.translateCode(list.get(0)) + ", " + list.get(1).toString());
 		frame.setCode(list.get(0));
 
-		String[][] teams = createTeamsArray(list.get(2));
-		frame.setTeams(teams);
+		try {
+			frame.setDate(frame.getInternalDateFormatter().parse(list.get(1)));
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(frame, e);
+		}
 
+		frame.setTeams(createTeamsArray(list.get(2)));
 		frame.setPlayers(createStringList(list.get(3)));
 		frame.setPlayerHomes(createStringList(list.get(4)));
 		frame.setGames(createIntegerList(list.get(5)));
@@ -131,6 +135,10 @@ public class LoadDatas implements ActionListener {
 		frame.setTwos(createIntegerList(list.get(8)));
 		frame.setThrees(createIntegerList(list.get(9)));
 
+		frame.getOverViewLab().setText(CodeTranslator.translateCode(frame.getCode()));
+		frame.getOverViewLab().setToolTipText("Salvattaggio effettuato in data " + frame.getVisibleDateFormatter().format(frame.getDate()));
+		Utils.fixLabelFontSize(frame.getOverViewLab(), false);
+		
 		frame.fillTables();
 		frame.getIndividualModel().setRowCount(0);
 		frame.getPlayerName().setText(null);

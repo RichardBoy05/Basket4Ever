@@ -26,6 +26,7 @@ public class TeamStats {
 			JOptionPane.showMessageDialog(null,
 					"Impossibile connettersi al sito \"https://lombardiacanestro.it\"!\n"
 					+ "Verifica di essere connesso ad Internet, altrimenti effettua una segnalazione!");
+			return null;
 		}
 
 		Elements teams = html.getElementsByClass("align-middle text-uppercase");

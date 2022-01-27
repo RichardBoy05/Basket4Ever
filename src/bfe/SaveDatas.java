@@ -26,7 +26,7 @@ public class SaveDatas implements ActionListener{
 		}
 		
 		String code = frame.getCode();
-		String date = frame.getdateFormatter().format(new Date(System.currentTimeMillis()));
+		String date = frame.getInternalDateFormatter().format(new Date(System.currentTimeMillis()));
 		String teams = matrixConverter(frame.getTeams());
 		String players = listConverter(frame.getPlayers());
 		String playerHomes = listConverter(frame.getPlayerHomes());

@@ -79,15 +79,15 @@ public class IndividualStats implements ActionListener {
 		row[0] = player;
 		row[1] = playerHome;
 		row[2] = games;
-		row[4] = points;
-		row[6] = tls;
-		row[8] = twos;
-		row[10] = threes;
+		row[3] = points;
+		row[5] = tls;
+		row[7] = twos;
+		row[9] = threes;
 
-		row[3] = getPercentage(points, games);
-		row[5] = getPercentage(tls, games);
-		row[7] = getPercentage(twos, games);
-		row[9] = getPercentage(threes, games);
+		row[4] = getPercentage(points, games);
+		row[6] = getPercentage(tls, games);
+		row[8] = getPercentage(twos, games);
+		row[10] = getPercentage(threes, games);
 
 		frame.getIndividualModel().addRow(row);
 

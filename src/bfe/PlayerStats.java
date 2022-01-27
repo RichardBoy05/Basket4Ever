@@ -40,8 +40,10 @@ public class PlayerStats {
 			try {
 				html = Jsoup.connect(url).get();
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Impossibile connettersi al sito \"https://lombardiacanestro.it!\"."
-						+ "Effettua una segnalazione mediante il pulsante \"Mail\" in basso a destra!");
+				JOptionPane.showMessageDialog(null,
+						"Impossibile connettersi al sito \"https://lombardiacanestro.it\"!\n"
+						+ "Verifica di essere connesso ad Internet, altrimenti effettua una segnalazione!");
+				return;
 			}
 
 			ArrayList<ArrayList<String>> playersAndHomes = getPlayersAndHomesList(html, gender);
