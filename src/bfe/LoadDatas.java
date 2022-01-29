@@ -137,7 +137,7 @@ public class LoadDatas implements ActionListener {
 
 		frame.getOverViewLab().setText(CodeTranslator.translateCode(frame.getCode()));
 		frame.getOverViewLab().setToolTipText("Salvattaggio effettuato in data " + frame.getVisibleDateFormatter().format(frame.getDate()));
-		Utils.fixLabelFontSize(frame.getOverViewLab(), false);
+		Utils.fixLabelFontSize(frame.getOverViewLab());
 		
 		frame.fillTables();
 		frame.getIndividualModel().setRowCount(0);

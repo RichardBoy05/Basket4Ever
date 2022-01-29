@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -115,7 +114,7 @@ public class FrameB extends JFrame {
 	private JTable individualTb = new JTable();
 
 	private DefaultTableModel teamsModel = new DefaultTableModel(new Object[][] {},
-			new String[] { "#", "Squadra", "Punti", "Giocate", "Vinte", "Perse", "Punti fatti", "Punti subiti" });
+			new String[] { "#", "Squadra", "Punti", "Giocate", "Vinte", "Perse", "PF", "PS" });
 
 	private DefaultTableModel playersModel1 = new DefaultTableModel(new Object[][] {},
 			new String[] { "#", "Giocatore", "Squadra", "PTS", "PPG", "PG" });
@@ -207,7 +206,7 @@ public class FrameB extends JFrame {
 		adjustTables();
 		buildUI();
 		eventsHandling();
-		fillTables();
+		//fillTables();
 
 	}
 
@@ -247,7 +246,7 @@ public class FrameB extends JFrame {
 		overviewLab.setBounds(74, 55, 435, 42);
 		overviewLab.setText(CodeTranslator.translateCode(getCode()));
 		overviewLab.setToolTipText("Salvattaggio effettuato in data " + VISIBLE_DATE_FORMATTER.format(date));
-		Utils.fixLabelFontSize(overviewLab, true);
+		Utils.fixLabelFontSize(overviewLab);
 
 		backLab.setBounds(0, 0, 1130, 670);
 		link.setBounds(109, 648, 216, 20);
@@ -330,7 +329,7 @@ public class FrameB extends JFrame {
 		viewOnLcBut.setFocusable(false);
 		viewOnLcBut.setBounds(745, 52, 57, 57);
 
-		teamsPane.setBounds(52, 158, 641, 343);
+		teamsPane.setBounds(52, 158, 493, 345);
 		teamsPane.setLayout(new BorderLayout());
 		teamsPane.setBorder(raisedBevel);
 
@@ -341,9 +340,9 @@ public class FrameB extends JFrame {
 		threePane.setLayout(new BorderLayout());
 		individualPane.setLayout(new BorderLayout());
 
-		tabbedPane.setBounds(728, 135, 352, 366);
+		tabbedPane.setBounds(586, 135, 496, 368);
 		getPlayerTf.setBounds(52, 577, 156, 30);
-		individualPane.setBounds(286, 536, 795, 89);
+		individualPane.setBounds(286, 540, 796, 85);
 
 	}
 
@@ -358,8 +357,6 @@ public class FrameB extends JFrame {
 		}
 
 		teamsTb.getColumnModel().getColumn(1).setPreferredWidth(200);
-
-		teamsTb.setRowHeight(60);
 		teamsTb.setColumnSelectionAllowed(false);
 		teamsTb.setRowSelectionAllowed(false);
 		teamsTb.getTableHeader().setReorderingAllowed(false);
@@ -371,7 +368,7 @@ public class FrameB extends JFrame {
 			overallTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
 		}
 
-		overallTb.setRowHeight(31);
+		overallTb.setRowHeight(32);
 		overallTb.setColumnSelectionAllowed(false);
 		overallTb.setRowSelectionAllowed(false);
 		overallTb.getTableHeader().setReorderingAllowed(false);
@@ -383,7 +380,7 @@ public class FrameB extends JFrame {
 			tlTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
 		}
 
-		tlTb.setRowHeight(31);
+		tlTb.setRowHeight(32);
 		tlTb.setColumnSelectionAllowed(false);
 		tlTb.setRowSelectionAllowed(false);
 		tlTb.getTableHeader().setReorderingAllowed(false);
@@ -395,7 +392,7 @@ public class FrameB extends JFrame {
 			twoTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
 		}
 
-		twoTb.setRowHeight(31);
+		twoTb.setRowHeight(32);
 		twoTb.setColumnSelectionAllowed(false);
 		twoTb.setRowSelectionAllowed(false);
 		twoTb.getTableHeader().setReorderingAllowed(false);
@@ -407,7 +404,7 @@ public class FrameB extends JFrame {
 			threeTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
 		}
 
-		threeTb.setRowHeight(31);
+		threeTb.setRowHeight(32);
 		threeTb.setColumnSelectionAllowed(false);
 		threeTb.setRowSelectionAllowed(false);
 		threeTb.getTableHeader().setReorderingAllowed(false);

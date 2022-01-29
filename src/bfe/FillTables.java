@@ -49,6 +49,11 @@ public class FillTables {
 			frame.getTeamsModel().addRow(row);
 
 		}
+		
+		int[] sizes = Utils.fixRowHeights(321, frame.getTeamsTb());
+		
+		frame.getTeamsTb().setRowHeight(sizes[0]);
+		frame.getTeamsTb().setRowHeight(frame.getTeamsTb().getRowCount() - 1, sizes[1]);
 
 	}
 
