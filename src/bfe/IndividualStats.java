@@ -23,6 +23,10 @@ public class IndividualStats implements ActionListener {
 		if (index == -1) {
 			JOptionPane.showMessageDialog(frame,
 					"Giocatore inesistente! Assicurati di aver digitato correttamente il suo cognome!");
+			
+			frame.getIndividualModel().setRowCount(0);
+			frame.getIndividualModel().addRow(frame.getEmptyIndividualRow());
+			
 			return;
 		}
 
@@ -90,7 +94,7 @@ public class IndividualStats implements ActionListener {
 		row[10] = getPercentage(threes, games);
 
 		frame.getIndividualModel().addRow(row);
-
+		
 	}
 
 	private String getPercentage(String value, String games) {

@@ -114,7 +114,7 @@ public class FrameB extends JFrame {
 	private JTable individualTb = new JTable();
 
 	private DefaultTableModel teamsModel = new DefaultTableModel(new Object[][] {},
-			new String[] { "#", "Squadra", "Punti", "Giocate", "Vinte", "Perse", "PF", "PS" });
+			new String[] { "#", "Squadra", "P", "G", "V", "S", "PF", "PS" });
 
 	private DefaultTableModel playersModel1 = new DefaultTableModel(new Object[][] {},
 			new String[] { "#", "Giocatore", "Squadra", "PTS", "PPG", "PG" });
@@ -132,6 +132,8 @@ public class FrameB extends JFrame {
 			new String[] { "Giocatore", "Squadra", "G", "PTS", "PPG", "FT", "FTG", "2PTS", "2PG", "3PTS", "3PG" });
 
 	private DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+	
+	private final String[] EMPTY_INDIVIDUAL_ROW = {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"};
 
 	// ImageIcons
 
@@ -172,7 +174,6 @@ public class FrameB extends JFrame {
 	private Image image2 = x64.getImage();
 	private Image image3 = x32.getImage();
 	private Image[] images = { image1, image2, image3 };
-	
 
 	public FrameB(String code, String[][] teams, List<String> players, List<String> playerHomes, List<Integer> points,
 			List<Integer> tls, List<Integer> twos, List<Integer> threes, List<Integer> games) {
@@ -206,7 +207,7 @@ public class FrameB extends JFrame {
 		adjustTables();
 		buildUI();
 		eventsHandling();
-		//fillTables();
+		fillTables();
 
 	}
 
@@ -245,7 +246,7 @@ public class FrameB extends JFrame {
 
 		overviewLab.setBounds(74, 55, 435, 42);
 		overviewLab.setText(CodeTranslator.translateCode(getCode()));
-		overviewLab.setToolTipText("Salvattaggio effettuato in data " + VISIBLE_DATE_FORMATTER.format(date));
+		overviewLab.setToolTipText("Salvataggio effettuato in data " + VISIBLE_DATE_FORMATTER.format(date));
 		Utils.fixLabelFontSize(overviewLab);
 
 		backLab.setBounds(0, 0, 1130, 670);
@@ -329,20 +330,22 @@ public class FrameB extends JFrame {
 		viewOnLcBut.setFocusable(false);
 		viewOnLcBut.setBounds(745, 52, 57, 57);
 
-		teamsPane.setBounds(52, 158, 493, 345);
-		teamsPane.setLayout(new BorderLayout());
 		teamsPane.setBorder(raisedBevel);
+		teamsPane.setLayout(new BorderLayout());
+		teamsPane.setBounds(52, 158, 493, 345);
+
+		individualPane.setBorder(raisedBevel);
+		individualPane.setLayout(new BorderLayout());
+		individualPane.setBounds(286, 540, 796, 85);
 
 		teamsPane.setLayout(new BorderLayout());
 		overallPane.setLayout(new BorderLayout());
 		tlPane.setLayout(new BorderLayout());
 		twoPane.setLayout(new BorderLayout());
 		threePane.setLayout(new BorderLayout());
-		individualPane.setLayout(new BorderLayout());
 
 		tabbedPane.setBounds(586, 135, 496, 368);
 		getPlayerTf.setBounds(52, 577, 156, 30);
-		individualPane.setBounds(286, 540, 796, 85);
 
 	}
 
@@ -356,11 +359,29 @@ public class FrameB extends JFrame {
 			teamsTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
 		}
 
-		teamsTb.getColumnModel().getColumn(1).setPreferredWidth(200);
 		teamsTb.setColumnSelectionAllowed(false);
 		teamsTb.setRowSelectionAllowed(false);
 		teamsTb.getTableHeader().setReorderingAllowed(false);
 		teamsTb.setDefaultEditor(Object.class, null);
+
+		teamsTb.getColumnModel().getColumn(0).setMaxWidth(35);
+		teamsTb.getColumnModel().getColumn(0).setMinWidth(35);
+
+		teamsTb.getColumnModel().getColumn(2).setMaxWidth(45);
+		teamsTb.getColumnModel().getColumn(2).setMinWidth(35);
+		teamsTb.getColumnModel().getColumn(3).setMaxWidth(45);
+		teamsTb.getColumnModel().getColumn(3).setMinWidth(35);
+		teamsTb.getColumnModel().getColumn(4).setMaxWidth(45);
+		teamsTb.getColumnModel().getColumn(4).setMinWidth(35);
+		teamsTb.getColumnModel().getColumn(5).setMaxWidth(45);
+		teamsTb.getColumnModel().getColumn(5).setMinWidth(35);
+
+		teamsTb.getColumnModel().getColumn(6).setMaxWidth(55);
+		teamsTb.getColumnModel().getColumn(6).setMinWidth(45);
+		teamsTb.getColumnModel().getColumn(7).setMaxWidth(55);
+		teamsTb.getColumnModel().getColumn(7).setMinWidth(45);
+
+		teamsTb.getColumnModel().getColumn(1).setPreferredWidth(164);
 
 		overallTb.setModel(playersModel1);
 
@@ -374,6 +395,21 @@ public class FrameB extends JFrame {
 		overallTb.getTableHeader().setReorderingAllowed(false);
 		overallTb.setDefaultEditor(Object.class, null);
 
+		overallTb.getColumnModel().getColumn(0).setMaxWidth(36);
+		overallTb.getColumnModel().getColumn(0).setMinWidth(36);
+
+		overallTb.getColumnModel().getColumn(3).setMaxWidth(55);
+		overallTb.getColumnModel().getColumn(3).setMinWidth(55);
+		overallTb.getColumnModel().getColumn(4).setMaxWidth(55);
+		overallTb.getColumnModel().getColumn(4).setMinWidth(55);
+		overallTb.getColumnModel().getColumn(5).setMaxWidth(55);
+		overallTb.getColumnModel().getColumn(5).setMinWidth(55);
+
+		overallTb.getColumnModel().getColumn(1).setPreferredWidth(145);
+		overallTb.getColumnModel().getColumn(1).setMinWidth(100);
+		overallTb.getColumnModel().getColumn(2).setPreferredWidth(145);
+		overallTb.getColumnModel().getColumn(2).setMinWidth(100);
+
 		tlTb.setModel(playersModel2);
 
 		for (int i = 0; i < tlTb.getColumnCount(); i++) {
@@ -385,6 +421,21 @@ public class FrameB extends JFrame {
 		tlTb.setRowSelectionAllowed(false);
 		tlTb.getTableHeader().setReorderingAllowed(false);
 		tlTb.setDefaultEditor(Object.class, null);
+
+		tlTb.getColumnModel().getColumn(0).setMaxWidth(36);
+		tlTb.getColumnModel().getColumn(0).setMinWidth(36);
+
+		tlTb.getColumnModel().getColumn(3).setMaxWidth(55);
+		tlTb.getColumnModel().getColumn(3).setMinWidth(55);
+		tlTb.getColumnModel().getColumn(4).setMaxWidth(55);
+		tlTb.getColumnModel().getColumn(4).setMinWidth(55);
+		tlTb.getColumnModel().getColumn(5).setMaxWidth(55);
+		tlTb.getColumnModel().getColumn(5).setMinWidth(55);
+
+		tlTb.getColumnModel().getColumn(1).setPreferredWidth(145);
+		tlTb.getColumnModel().getColumn(1).setMinWidth(100);
+		tlTb.getColumnModel().getColumn(2).setPreferredWidth(145);
+		tlTb.getColumnModel().getColumn(2).setMinWidth(100);
 
 		twoTb.setModel(playersModel3);
 
@@ -398,6 +449,21 @@ public class FrameB extends JFrame {
 		twoTb.getTableHeader().setReorderingAllowed(false);
 		twoTb.setDefaultEditor(Object.class, null);
 
+		twoTb.getColumnModel().getColumn(0).setMaxWidth(36);
+		twoTb.getColumnModel().getColumn(0).setMinWidth(36);
+
+		twoTb.getColumnModel().getColumn(3).setMaxWidth(55);
+		twoTb.getColumnModel().getColumn(3).setMinWidth(55);
+		twoTb.getColumnModel().getColumn(4).setMaxWidth(55);
+		twoTb.getColumnModel().getColumn(4).setMinWidth(55);
+		twoTb.getColumnModel().getColumn(5).setMaxWidth(55);
+		twoTb.getColumnModel().getColumn(5).setMinWidth(55);
+
+		twoTb.getColumnModel().getColumn(1).setPreferredWidth(145);
+		twoTb.getColumnModel().getColumn(1).setMinWidth(100);
+		twoTb.getColumnModel().getColumn(2).setPreferredWidth(145);
+		twoTb.getColumnModel().getColumn(2).setMinWidth(100);
+
 		threeTb.setModel(playersModel4);
 
 		for (int i = 0; i < threeTb.getColumnCount(); i++) {
@@ -410,17 +476,58 @@ public class FrameB extends JFrame {
 		threeTb.getTableHeader().setReorderingAllowed(false);
 		threeTb.setDefaultEditor(Object.class, null);
 
+		threeTb.getColumnModel().getColumn(0).setMaxWidth(36);
+		threeTb.getColumnModel().getColumn(0).setMinWidth(36);
+
+		threeTb.getColumnModel().getColumn(3).setMaxWidth(55);
+		threeTb.getColumnModel().getColumn(3).setMinWidth(55);
+		threeTb.getColumnModel().getColumn(4).setMaxWidth(55);
+		threeTb.getColumnModel().getColumn(4).setMinWidth(55);
+		threeTb.getColumnModel().getColumn(5).setMaxWidth(55);
+		threeTb.getColumnModel().getColumn(5).setMinWidth(55);
+
+		threeTb.getColumnModel().getColumn(1).setPreferredWidth(145);
+		threeTb.getColumnModel().getColumn(1).setMinWidth(100);
+		threeTb.getColumnModel().getColumn(2).setPreferredWidth(145);
+		threeTb.getColumnModel().getColumn(2).setMinWidth(100);
+
 		individualTb.setModel(individualModel);
 
 		for (int i = 0; i < individualTb.getColumnCount(); i++) {
 			individualTb.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
 		}
 
-		individualTb.setRowHeight(72);
+		individualTb.setRowHeight(60);
 		individualTb.setColumnSelectionAllowed(false);
 		individualTb.setRowSelectionAllowed(false);
 		individualTb.getTableHeader().setReorderingAllowed(false);
 		individualTb.setDefaultEditor(Object.class, null);
+
+		individualTb.getColumnModel().getColumn(0).setPreferredWidth(145);
+		individualTb.getColumnModel().getColumn(0).setMinWidth(100);
+		individualTb.getColumnModel().getColumn(1).setPreferredWidth(145);
+		individualTb.getColumnModel().getColumn(1).setMinWidth(100);
+
+		individualTb.getColumnModel().getColumn(2).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(2).setMinWidth(55);
+		individualTb.getColumnModel().getColumn(3).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(3).setMinWidth(55);
+		individualTb.getColumnModel().getColumn(4).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(4).setMinWidth(55);
+		individualTb.getColumnModel().getColumn(5).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(5).setMinWidth(55);
+		individualTb.getColumnModel().getColumn(6).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(6).setMinWidth(55);
+		individualTb.getColumnModel().getColumn(7).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(7).setMinWidth(55);
+		individualTb.getColumnModel().getColumn(8).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(8).setMinWidth(55);
+		individualTb.getColumnModel().getColumn(9).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(9).setMinWidth(55);
+		individualTb.getColumnModel().getColumn(10).setMaxWidth(55);
+		individualTb.getColumnModel().getColumn(10).setMinWidth(55);
+		
+		individualModel.addRow(EMPTY_INDIVIDUAL_ROW);
 
 	}
 
@@ -453,7 +560,7 @@ public class FrameB extends JFrame {
 		threePane.add(threeTb.getTableHeader(), BorderLayout.NORTH);
 		threePane.add(threeTb, BorderLayout.CENTER);
 		individualPane.add(individualTb.getTableHeader(), BorderLayout.NORTH);
-		individualPane.add(individualTb, BorderLayout.WEST);
+		individualPane.add(individualTb, BorderLayout.CENTER);
 		tabbedPane.addTab("Punti", null, overallPane, "Top 10 realizzatori del girone");
 		tabbedPane.addTab("Tiri liberi", null, tlPane, "Top 10 realizzatori di tiri liberi del girone");
 		tabbedPane.addTab("Tiri da 2", null, twoPane, "Top 10 realizzatori di tiri da 2 segnati del girone");
@@ -631,7 +738,7 @@ public class FrameB extends JFrame {
 	public SimpleDateFormat getInternalDateFormatter() {
 		return INTERNAL_DATE_FORMATTER;
 	}
-	
+
 	public SimpleDateFormat getVisibleDateFormatter() {
 		return VISIBLE_DATE_FORMATTER;
 	}
@@ -735,5 +842,9 @@ public class FrameB extends JFrame {
 	public JLabel getOverViewLab() {
 		return overviewLab;
 	}
-	
+
+	public String[] getEmptyIndividualRow() {
+		return EMPTY_INDIVIDUAL_ROW;
+	}
+
 }
