@@ -30,8 +30,9 @@ public class FrameA extends JFrame {//
 	// General fields
 
 	private static final long serialVersionUID = 1L;
-	//private final int MIN_SCREEN_WHIDTH = 1150; //usali per controllare che l'utente abbia una risoluzione adeguata
-	//private final int MIN_SCREEN_HEIGHT = 700;
+	// private final int MIN_SCREEN_WHIDTH = 1150; //usali per controllare che
+	// l'utente abbia una risoluzione adeguata
+	// private final int MIN_SCREEN_HEIGHT = 700;
 	private int xpos;
 	private int ypos;
 
@@ -47,7 +48,7 @@ public class FrameA extends JFrame {//
 
 	// JButtons
 
-	private JButton go_button = new JButton();
+	private JButton goBut = new JButton();
 	private JButton minimize_button = new JButton();
 	private JButton maximize_button = new JButton();
 	private JButton about_button = new JButton();
@@ -55,6 +56,7 @@ public class FrameA extends JFrame {//
 	private JButton mail_button = new JButton();
 	private JButton lombcanestro_button = new JButton();
 	private JButton close_button = new JButton();
+	private JButton loadBut = new JButton();
 
 	// Arrays
 
@@ -100,6 +102,8 @@ public class FrameA extends JFrame {//
 	private ImageIcon hovermail = new ImageIcon(getClass().getClassLoader().getResource("hovermail.png"));
 	private ImageIcon logolc = new ImageIcon(getClass().getClassLoader().getResource("logolc.png"));
 	private ImageIcon hoverlogolc = new ImageIcon(getClass().getClassLoader().getResource("hoverlogolc.png"));
+	private ImageIcon load = new ImageIcon(getClass().getClassLoader().getResource("loadsmall.png"));
+	private ImageIcon hoverload = new ImageIcon(getClass().getClassLoader().getResource("hoverloadsmall.png"));
 
 	// Images
 
@@ -107,6 +111,12 @@ public class FrameA extends JFrame {//
 	private Image image2 = x64.getImage();
 	private Image image3 = x32.getImage();
 	private Image[] images = { image1, image2, image3 };
+
+	// Fonts and Borders
+
+	private Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	private Font comboFont = new Font("Arial", Font.PLAIN, 15);
+	private Font barFont = new Font("", Font.BOLD, 16);
 
 	public FrameA() {
 
@@ -155,13 +165,14 @@ public class FrameA extends JFrame {//
 		maximize_button.setFocusable(false);
 		maximize_button.setBounds(786, 0, 30, 30);
 
-		go_button.setBorder(null);
-		go_button.setContentAreaFilled(false);
-		go_button.setIcon(go);
-		go_button.setRolloverIcon(hovergo);
-		go_button.setFocusPainted(false);
-		go_button.setFocusable(false);
-		go_button.setBounds(412, 402, 110, 58);
+		goBut.setBorder(null);
+		goBut.setContentAreaFilled(false);
+		goBut.setIcon(go);
+		goBut.setRolloverIcon(hovergo);
+		goBut.setFocusPainted(false);
+		goBut.setFocusable(false);
+		getRootPane().setDefaultButton(goBut);
+		goBut.setBounds(412, 402, 110, 58);
 
 		about_button.setBorder(null);
 		about_button.setContentAreaFilled(false);
@@ -195,6 +206,14 @@ public class FrameA extends JFrame {//
 		lombcanestro_button.setFocusable(false);
 		lombcanestro_button.setBounds(408, 482, 15, 15);
 
+		loadBut.setBorder(null);
+		loadBut.setContentAreaFilled(false);
+		loadBut.setIcon(load);
+		loadBut.setRolloverIcon(hoverload);
+		loadBut.setFocusPainted(false);
+		loadBut.setFocusable(false);
+		loadBut.setBounds(791, 430, 55, 42);
+
 		progress_label.setBounds(610, 452, 150, 14);
 
 		backLabel.setBounds(0, 0, 849, 500);
@@ -203,15 +222,11 @@ public class FrameA extends JFrame {//
 		bar = new JProgressBar(0, 100);
 		bar.setBounds(567, 394, 216, 52);
 		bar.setStringPainted(true);
-		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		bar.setBorder(loweredbevel);
 		bar.setForeground(new Color(0, 255, 127));
 
-		// Fonts and Borders
+		// Font Settings
 
-		Font comboFont = new Font("Arial", Font.PLAIN, 15);
-		Font barFont = new Font("", Font.BOLD, 16);
-		
 		gendercb.setFont(comboFont);
 		yearcb.setFont(comboFont);
 		levelcb.setFont(comboFont);
@@ -231,12 +246,13 @@ public class FrameA extends JFrame {//
 		contentPane.add(close_button);
 		contentPane.add(minimize_button);
 		contentPane.add(maximize_button);
-		contentPane.add(go_button);
+		contentPane.add(goBut);
 		contentPane.add(about_button);
 		contentPane.add(github_button);
 		contentPane.add(mail_button);
 		contentPane.add(lombcanestro_button);
 		contentPane.add(progress_label);
+		contentPane.add(loadBut);
 		contentPane.add(backLabel);
 
 		// Events handling
@@ -319,8 +335,14 @@ public class FrameA extends JFrame {//
 			}
 		});
 
-		go_button.addActionListener(new WebScraping(this));
+		loadBut.addActionListener(e -> {
+			
+			LoadDatas dt = new LoadDatas(this, new FrameB(null, null, null, null, null, null, null, null, null));
+			dt.actionPerformed(e);
 
+		});
+
+		goBut.addActionListener(new WebScraping(this));
 		gendercb.addItemListener(new ListHandler(this));
 		yearcb.addItemListener(new ListHandler(this));
 		levelcb.addItemListener(new ListHandler(this));
@@ -335,8 +357,12 @@ public class FrameA extends JFrame {//
 		return progress_label;
 	}
 
-	public JButton getGoButton() {
-		return go_button;
+	public JButton getGoBut() {
+		return goBut;
+	}
+
+	public JButton getLoadBut() {
+		return loadBut;
 	}
 
 	public String[] getGenderls() {
@@ -386,9 +412,8 @@ public class FrameA extends JFrame {//
 	public JComboBox<String> getGroupcb() {
 		return groupcb;
 	}
-	
+
 	public JProgressBar getBar() {
 		return bar;
 	}
-
 }

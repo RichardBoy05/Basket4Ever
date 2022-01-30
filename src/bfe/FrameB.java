@@ -132,8 +132,8 @@ public class FrameB extends JFrame {
 			new String[] { "Giocatore", "Squadra", "G", "PTS", "PPG", "FT", "FTG", "2PTS", "2PG", "3PTS", "3PG" });
 
 	private DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-	
-	private final String[] EMPTY_INDIVIDUAL_ROW = {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"};
+
+	private final String[] EMPTY_INDIVIDUAL_ROW = { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" };
 
 	// ImageIcons
 
@@ -207,7 +207,9 @@ public class FrameB extends JFrame {
 		adjustTables();
 		buildUI();
 		eventsHandling();
-		fillTables();
+
+		if (code != null)
+			fillTables();
 
 	}
 
@@ -245,9 +247,12 @@ public class FrameB extends JFrame {
 	private void initComponents() {
 
 		overviewLab.setBounds(74, 55, 435, 42);
-		overviewLab.setText(CodeTranslator.translateCode(getCode()));
-		overviewLab.setToolTipText("Salvataggio effettuato in data " + VISIBLE_DATE_FORMATTER.format(date));
-		Utils.fixLabelFontSize(overviewLab);
+		
+		if (code != null) {
+			overviewLab.setText(CodeTranslator.translateCode(getCode()));
+			overviewLab.setToolTipText("Salvataggio effettuato in data " + VISIBLE_DATE_FORMATTER.format(date));
+			Utils.fixLabelFontSize(overviewLab);
+		}
 
 		backLab.setBounds(0, 0, 1130, 670);
 		link.setBounds(109, 648, 216, 20);
@@ -526,12 +531,14 @@ public class FrameB extends JFrame {
 		individualTb.getColumnModel().getColumn(9).setMinWidth(55);
 		individualTb.getColumnModel().getColumn(10).setMaxWidth(55);
 		individualTb.getColumnModel().getColumn(10).setMinWidth(55);
-		
+
 		individualModel.addRow(EMPTY_INDIVIDUAL_ROW);
 
 	}
 
 	private void buildUI() {
+
+		getRootPane().setDefaultButton(searchBut);
 
 		contentPane.add(viewOnLcBut);
 		contentPane.add(overviewLab);
@@ -666,6 +673,10 @@ public class FrameB extends JFrame {
 		saveBut.addActionListener(new SaveDatas(this));
 		loadBut.addActionListener(new LoadDatas(this));
 		viewOnLcBut.addActionListener(new ViewOnLc(this));
+		overallTb.addMouseListener(new SelectedPlayerListener(this));
+		tlTb.addMouseListener(new SelectedPlayerListener(this));
+		twoTb.addMouseListener(new SelectedPlayerListener(this));
+		threeTb.addMouseListener(new SelectedPlayerListener(this));
 
 	}
 
@@ -845,6 +856,10 @@ public class FrameB extends JFrame {
 
 	public String[] getEmptyIndividualRow() {
 		return EMPTY_INDIVIDUAL_ROW;
+	}
+
+	public JButton getSearchBut() {
+		return searchBut;
 	}
 
 }

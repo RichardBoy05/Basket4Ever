@@ -2,21 +2,37 @@ package bfe;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class LoadDatas implements ActionListener {
 
 	private FrameB frame;
+	private FrameA previousWindow;
 	private String[] items = new String[5];
 	private JComboBox<String> cb;
 
+	private Properties properties = new Properties();
+	private FileInputStream inp;
+	private FileOutputStream out;
+
 	public LoadDatas(FrameB frame) {
 
+		this.frame = frame;
+		this.previousWindow = null;
+	}
+
+	public LoadDatas(FrameA previousWindow, FrameB frame) {
+
+		this.previousWindow = previousWindow;
 		this.frame = frame;
 	}
 
@@ -86,7 +102,7 @@ public class LoadDatas implements ActionListener {
 
 			if (showOrDelete == 0) {
 				return Integer.toString(index) + "s";
-			} else {
+			} else if (showOrDelete == 1) {
 				return Integer.toString(index) + "d";
 			}
 		}
@@ -111,12 +127,72 @@ public class LoadDatas implements ActionListener {
 
 			value = Integer.parseInt(choice.substring(0, length - 1));
 			id = Integer.parseInt(ids[value]);
-			SQlite.deleteSaved(id);
 
+			try {
+
+				inp = new FileInputStream("./config.properties");
+				properties.load(inp);
+				inp.close();
+
+			} catch (IOException e1) {
+
+				JOptionPane.showMessageDialog(frame,
+						"Il file \"config.properties\" è assente o danneggiato, impossibile eseguire l'operazione!");
+				return;
+			}
+
+			if (properties.getProperty("showDeleteConfirmMessage").equals("false")) {
+
+				SQlite.deleteSaved(id);
+				return;
+			}
+
+			Object[] choices = { "No", "Sì", "Sì e non chiederlo più" };
+
+			int areYouSure = JOptionPane.showOptionDialog(frame,
+					"Sei sicuro di voler eliminare questo salvataggio per SEMPRE?", "Attenzione",
+					JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, choices, choices[0]);
+
+			switch (areYouSure) {
+
+			case 0 -> {
+				return;
+			}
+
+			case 1 -> {
+				SQlite.deleteSaved(id);
+			}
+
+			case 2 -> {
+
+				try {
+
+					out = new FileOutputStream("./config.properties");
+					properties.setProperty("showDeleteConfirmMessage", "false");
+					properties.store(out, null);
+					out.close();
+
+				} catch (IOException e) {
+
+					JOptionPane.showMessageDialog(frame,
+							"Il file \"config.properties\" è assente o danneggiato, impossibile salvare la preferenza! Salvataggio eliminato!");
+				}
+
+				SQlite.deleteSaved(id);
+
+			}
+
+			}
 		}
+
 	}
 
 	private void showChanges(List<String> list) {
+
+		if (frame.getCode() == null) {
+			frame.setVisible(true);
+			previousWindow.dispose();
+		}
 
 		frame.setCode(list.get(0));
 
@@ -136,11 +212,13 @@ public class LoadDatas implements ActionListener {
 		frame.setThrees(createIntegerList(list.get(9)));
 
 		frame.getOverViewLab().setText(CodeTranslator.translateCode(frame.getCode()));
-		frame.getOverViewLab().setToolTipText("Salvattaggio effettuato in data " + frame.getVisibleDateFormatter().format(frame.getDate()));
+		frame.getOverViewLab().setToolTipText(
+				"Salvataggio effettuato in data " + frame.getVisibleDateFormatter().format(frame.getDate()));
 		Utils.fixLabelFontSize(frame.getOverViewLab());
-		
+
 		frame.fillTables();
 		frame.getIndividualModel().setRowCount(0);
+		frame.getIndividualModel().addRow(frame.getEmptyIndividualRow());
 		frame.getPlayerName().setText(null);
 
 	}

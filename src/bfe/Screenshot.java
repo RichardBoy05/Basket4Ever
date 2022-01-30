@@ -6,12 +6,11 @@ import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Properties;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -23,6 +22,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Screenshot implements ActionListener {
 
 	private FrameB frame;
+
+	private Properties properties = new Properties();
+	private FileInputStream inp;
+	private FileOutputStream out;
 
 	public Screenshot(FrameB frame) {
 
@@ -55,20 +58,21 @@ public class Screenshot implements ActionListener {
 		String directory = null;
 
 		JFileChooser fc = null;
-		File pathLastDir = new File("./lastDir.txt");
 		String lastDir = null;
 
 		try {
 
-			FileReader reader = new FileReader(pathLastDir);
-			BufferedReader b = new BufferedReader(reader);
-			lastDir = b.readLine();
-			b.close();
+			inp = new FileInputStream("./config.properties");
+			properties.load(inp);
+			inp.close();
+
+			lastDir = properties.getProperty("lastDir");
+			System.out.println(lastDir);
 
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null,
-					"Il file indicante l'ultimo percorso selezionato non risiede nalla stessa cartella del programma!\n"
-							+ e);
+
+			JOptionPane.showMessageDialog(frame,
+					"Il file \"config.properties\" è assente o danneggiato! Impossibile riconoscere l'ultimo percorso selezionato!");
 		}
 
 		LookAndFeel previousLF = UIManager.getLookAndFeel();
@@ -91,23 +95,28 @@ public class Screenshot implements ActionListener {
 
 			fileToSave = fc.getSelectedFile();
 
+			directory = fileToSave.getAbsolutePath();
+
+			if (!directory.substring(directory.length() - 4).equals(".png")) {
+				directory = directory + ".png";
+			}
+
 			try {
-				PrintWriter printer = new PrintWriter(new FileWriter(pathLastDir, false));
-				directory = fileToSave.getAbsolutePath();
 				
-				if (!directory.substring(directory.length() - 4).equals(".png")) {
-					directory = directory + ".png";
-				} 
+				String lastPath = directory;
+				lastPath = lastPath.substring(0, lastPath.lastIndexOf("\\"));
 				
-				printer.println(directory.substring(0, directory.lastIndexOf("\\")));
-				printer.close();
+				out = new FileOutputStream("./config.properties");
+				properties.setProperty("lastDir", lastPath);
+				properties.store(out, null);
+				out.close();
 				
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Errore I/O!" + e);
+				JOptionPane.showMessageDialog(frame,
+						"Il file \"config.properties\" è assente o danneggiato, impossibile salvare il percorso!");
 			}
 		}
-		
-		
+
 		return directory;
 
 	}

@@ -35,7 +35,9 @@ public class WebScraping implements ActionListener {
 		frame.getLevelcb().setEnabled(false);
 		frame.getFasecb().setEnabled(false);
 		frame.getGroupcb().setEnabled(false);
-		frame.getGoButton().setEnabled(false);
+		
+		frame.getGoBut().setEnabled(false);
+		frame.getLoadBut().setEnabled(false);
 		
 
 	}

@@ -38,7 +38,7 @@ public class IndividualStats implements ActionListener {
 	}
 
 	private int getPlayerIndex(String player) {
-
+		
 		int index = -1;
 		int counter = 0;
 		String[] inputParts = player.split(" ", 2);
@@ -55,7 +55,7 @@ public class IndividualStats implements ActionListener {
 			
 				} else { //basically if == 2
 					
-					if (currentParts[1].contains(inputParts[1])) {
+					if (currentParts[1].toLowerCase().contains(inputParts[1].toLowerCase())) {
 						
 						index = counter;
 					}
