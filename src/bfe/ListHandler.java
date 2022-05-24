@@ -143,75 +143,60 @@ public class ListHandler implements ItemListener {
 
 		if (e.getSource().equals(frame.getLevelcb()) && e.getStateChange() == ItemEvent.SELECTED) {
 
-			char first = BuildUrl.getFirstChar(frame.getGendercb().getSelectedItem().toString());
-			char second = BuildUrl.getSecondChar(frame.getYearcb().getSelectedItem().toString(),
-					frame.getGendercb().getSelectedItem().toString());
-			char third = BuildUrl.getThirdChar(frame.getLevelcb().getSelectedItem().toString());
-			char fourth = BuildUrl.getFourthChar(frame.getFasecb().getSelectedItem().toString());
-
-			builder.append(first);
-			builder.append(second);
-			builder.append(third);
-			builder.append(fourth);
-
-			frame.getGroupcb().removeAllItems();
-
-			String code = builder.toString();
-
-			if (code.contains("@")) {
-				JOptionPane.showMessageDialog(null,
-						"Errore imprevisto nella classificazione dei gironi. Effettua una segnalazione!");
-			}
-
-			builder.delete(0, builder.length());
-
-			String line;
-			String[] arrayline = new String[5];
-
-			try {
-
-				BufferedReader br = new BufferedReader(new FileReader("./database/groups.txt"));
-
-				while ((line = br.readLine()) != null) {
-
-					arrayline = line.split(";");
-					if (arrayline[0].substring(0, arrayline[0].length() - 1).equals(code)) {
-						frame.getGroupcb().addItem(arrayline[4]);
-					}
-
-				}
-
-				br.close();
-			} catch (IOException e1) {
-
-				e1.printStackTrace();
-			}
+			parseDatabase();
 
 		}
 
 		if (e.getSource().equals(frame.getFasecb()) && e.getStateChange() == ItemEvent.SELECTED) {
 
-			if (frame.getFasecb().getSelectedIndex() == 1) {
-				frame.getGroupcb().removeAllItems();
-				frame.getGroupcb().addItem("Nessun girone disponibile!");
-			} else {
+			parseDatabase();
+		}
+	}
 
-				String[] before_changing = new String[frame.getLevelcb().getItemCount()];
-				int before_selection = frame.getLevelcb().getSelectedIndex();
+	private void parseDatabase() {
 
-				for (int i = 0; i < frame.getLevelcb().getItemCount(); i++) {
-					before_changing[i] = frame.getLevelcb().getItemAt(i);
+		char first = BuildUrl.getFirstChar(frame.getGendercb().getSelectedItem().toString());
+		char second = BuildUrl.getSecondChar(frame.getYearcb().getSelectedItem().toString(),
+				frame.getGendercb().getSelectedItem().toString());
+		char third = BuildUrl.getThirdChar(frame.getLevelcb().getSelectedItem().toString());
+		char fourth = BuildUrl.getFourthChar(frame.getFasecb().getSelectedItem().toString());
+
+		builder.append(first);
+		builder.append(second);
+		builder.append(third);
+		builder.append(fourth);
+
+		frame.getGroupcb().removeAllItems();
+
+		String code = builder.toString();
+
+		if (code.contains("@")) {
+			JOptionPane.showMessageDialog(null,
+					"Errore imprevisto nella classificazione dei gironi. Effettua una segnalazione!");
+		}
+
+		builder.delete(0, builder.length());
+
+		String line;
+		String[] arrayline = new String[5];
+
+		try {
+
+			BufferedReader br = new BufferedReader(new FileReader("./database/groups.txt"));
+
+			while ((line = br.readLine()) != null) {
+
+				arrayline = line.split(";");
+				if (arrayline[0].substring(0, arrayline[0].length() - 1).equals(code)) {
+					frame.getGroupcb().addItem(arrayline[4]);
 				}
 
-				frame.getLevelcb().removeAllItems();
-
-				for (String temp : before_changing) {
-					frame.getLevelcb().addItem(temp);
-				}
-
-				frame.getLevelcb().setSelectedIndex(before_selection);
 			}
 
+			br.close();
+		} catch (IOException e1) {
+
+			e1.printStackTrace();
 		}
 	}
 

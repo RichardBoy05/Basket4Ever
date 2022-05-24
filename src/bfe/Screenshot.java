@@ -67,7 +67,6 @@ public class Screenshot implements ActionListener {
 			inp.close();
 
 			lastDir = properties.getProperty("lastDir");
-			System.out.println(lastDir);
 
 		} catch (IOException e) {
 

@@ -275,3 +275,92 @@ mm3qB;9127;9146;209;2
 mm3qC;9147;9166;210;3
 mm3qD;9167;9196;211;4
 mm3qE;9197;9216;212;5
+mb5cA;9767;9894;278;Blu
+mb5cB;9895;10022;279;Giallo
+mb5cC;10023;10150;280;Verde
+mh1cA;10487;10516;281;Gold
+mh1cB;10517;10548;282;Silver
+mi1cA;10549;10578;283;Gold
+mi1cB;10579;10623;284;Silver
+mk1cA;10624;10653;285;Gold
+mk1cB;10654;10698;286;Silver
+mc5cA;10699;10754;287;A
+mc5cB;10755;10818;288;B
+mc5cC;10819;10882;289;C
+mc5cD;10883;10946;290;D
+mc5cE;10947;11002;291;E
+mc5cF;11003;11066;292;F
+fr2cA;11711;11782;293;Unico
+ma5cA;11865;11939;294;Gold
+ma5cB;11940;12014;295;Silver
+fq5cA;12155;12174;296;A
+mh3cA;12195;12222;297;Top Blu
+mh3cB;12223;12250;298;Top Verde
+mh3cC;12251;12278;299;Super Arancio
+mh3cD;12279;12306;300;Super Rosso
+mh4cA;12307;12336;301;Milano Plate 1
+mh4cB;12337;12366;302;Milano Plate 2
+mh4cC;12367;12396;303;Milano Plate 3
+mh4cD;12397;12426;304;Milano Plate 4
+mh4cE;12427;12446;305;Milano Bronze 1
+mh4cF;12447;12476;306;Milano Bronze 2
+mh4cG;12477;12506;307;Milano Bronze 3
+mh4cH;12507;12526;308;Milano Bronze 4
+mh4cI;12527;12546;309;Milano Bronze 5
+mh4cJ;13434;13463;324;Varese Plate 5
+mh4cK;13464;13493;325;Varese Plate 6
+mh4cL;13494;13523;326;Varese Bronze 6
+mh4cM;13524;13553;327;Varese Bronze 7
+mh4cN;13554;13583;328;Varese Bronze 8
+mh4cO;13584;13613;329;Varese Bronze 9
+mh4cP;12547;12576;310;Bergamo Plate 7
+mh4cQ;12577;12606;311;Bergamo Plate 8
+mh4cR;12607;12626;312;Bergamo Bronze 10
+mh4cS;12627;12646;313;Bergamo Bronze 11
+mh4cT;12647;12676;314;Bergamo Bronze 12
+mh4cU;12677;12706;315;Bergamo Bronze 13
+mh4cV;12707;12736;316;Brescia Plate 9
+mh4cW;12737;12766;317;Brescia Plate 10
+mh4cX;12767;12796;318;Brescia Bronze 14
+mh4cY;12797;12826;319;Brescia Bronze 15
+mh4cZ;12827;12856;320;Brescia Bronze 16
+fn5cA;12857;12937;321;Unico
+fo5cA;12938;13001;322;Verde
+fo5cB;13002;13065;323;Giallo
+md5cA;15382;15437;330;Milano 1-2
+md5cB;15438;15501;331;Milano 3-4
+mm3cA;13625;13630;332;Gold 1
+mi3cA;13643;13670;333;Top Blu
+mi3cB;13671;13698;334;Top Verde
+mi3cC;13699;13726;335;Super Arancio
+mi3cD;13727;13754;336;Super Rosso
+mk3cA;13755;13782;337;Top Blu
+mk3cB;13783;13810;338;Top Verde
+mk3cC;13811;13831;339;Super Arancio
+mk3cD;13832;13859;340;Super Rosso
+mj3cA;13860;13887;341;Top Blu
+mj3cB;13888;13915;342;Top Verde
+mj3cC;13916;13943;343;Super Arancio
+mj3cD;13944;13971;344;Super Rosso
+mi4cA;356;Milano Plate 1
+mi4cB;357;Milano Plate 2
+mi4cC;358;Milano Bronze 1
+mi4cD;359;Milano Bronze 2
+mi4cE;360;Milano Bronze 3
+mi4cF;361;Milano Bronze 4
+mi4cG;362;Varese Plate 3
+mi4cH;363;Varese Plate 4
+mi4cI;364;Varese Bronze 5
+mi4cJ;365;Varese Bronze 6
+mi4cK;366;Varese Bronze 7
+mi4cL;13972;14001;345;Bergamo Plate 5
+mi4cM;14002;14031;346;Bergamo Plate 6
+mi4cN;14032;14061;347;Bergamo Bronze 8
+mi4cO;14062;14091;348;Bergamo Bronze 9
+mi4cP;14092;14121;349;Bergamo Bronze 10
+mi4cQ;14122;14151;350;Brescia Plate 7
+mi4cR;14152;351;Brescia Plate 8
+mi4cS;352;Brescia Bronze 11
+mi4cT;353;Brescia Bronze 12
+mi4cU;354;Brescia Bronze 13
+mi4cV;355;Brescia Bronze 14

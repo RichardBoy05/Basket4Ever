@@ -21,6 +21,8 @@ public class BuildUrl {
 		builder.append(getFourthChar(fase));
 		builder.append(getFifthChar(group));
 
+		System.out.println("Builder: " + builder.toString());
+		
 		return scanDatas(builder.toString());
 
 	}
